@@ -1,0 +1,210 @@
+[
+ {
+  "id": "s82-3",
+  "template": "82 RR GG BB"
+ },
+ {
+  "id": "s82-L3",
+  "template": "82 03 RR GG BB"
+ },
+ {
+  "id": "s82-1L3",
+  "template": "82 01 03 RR GG BB"
+ },
+ {
+  "id": "s82-4",
+  "template": "82 RR GG BB 00"
+ },
+ {
+  "id": "s83-3",
+  "template": "83 RR GG BB"
+ },
+ {
+  "id": "s83-L3",
+  "template": "83 03 RR GG BB"
+ },
+ {
+  "id": "s83-1L3",
+  "template": "83 01 03 RR GG BB"
+ },
+ {
+  "id": "s83-4",
+  "template": "83 RR GG BB 00"
+ },
+ {
+  "id": "s90-3",
+  "template": "90 RR GG BB"
+ },
+ {
+  "id": "s90-L3",
+  "template": "90 03 RR GG BB"
+ },
+ {
+  "id": "s90-1L3",
+  "template": "90 01 03 RR GG BB"
+ },
+ {
+  "id": "s90-4",
+  "template": "90 RR GG BB 00"
+ },
+ {
+  "id": "s91-3",
+  "template": "91 RR GG BB"
+ },
+ {
+  "id": "s91-L3",
+  "template": "91 03 RR GG BB"
+ },
+ {
+  "id": "s91-1L3",
+  "template": "91 01 03 RR GG BB"
+ },
+ {
+  "id": "s91-4",
+  "template": "91 RR GG BB 00"
+ },
+ {
+  "id": "s9a-3",
+  "template": "9a RR GG BB"
+ },
+ {
+  "id": "s9a-L3",
+  "template": "9a 03 RR GG BB"
+ },
+ {
+  "id": "s9a-1L3",
+  "template": "9a 01 03 RR GG BB"
+ },
+ {
+  "id": "s9a-4",
+  "template": "9a RR GG BB 00"
+ },
+ {
+  "id": "sa0-3",
+  "template": "a0 RR GG BB"
+ },
+ {
+  "id": "sa0-L3",
+  "template": "a0 03 RR GG BB"
+ },
+ {
+  "id": "sa0-1L3",
+  "template": "a0 01 03 RR GG BB"
+ },
+ {
+  "id": "sa0-4",
+  "template": "a0 RR GG BB 00"
+ },
+ {
+  "id": "sa5-3",
+  "template": "a5 RR GG BB"
+ },
+ {
+  "id": "sa5-L3",
+  "template": "a5 03 RR GG BB"
+ },
+ {
+  "id": "sa5-1L3",
+  "template": "a5 01 03 RR GG BB"
+ },
+ {
+  "id": "sa5-4",
+  "template": "a5 RR GG BB 00"
+ },
+ {
+  "id": "se2-3",
+  "template": "e2 RR GG BB"
+ },
+ {
+  "id": "se2-L3",
+  "template": "e2 03 RR GG BB"
+ },
+ {
+  "id": "se2-1L3",
+  "template": "e2 01 03 RR GG BB"
+ },
+ {
+  "id": "se2-4",
+  "template": "e2 RR GG BB 00"
+ },
+ {
+  "id": "s90-struct-a",
+  "template": "90 04 RR GG BB 00"
+ },
+ {
+  "id": "s90-struct-b",
+  "template": "90 04 12 RR GG BB"
+ },
+ {
+  "id": "s90-struct-c",
+  "template": "90 04 12 02 RR GG"
+ },
+ {
+  "id": "eff+col-1",
+  "template": "90 01 01"
+ },
+ {
+  "id": "c04",
+  "template": "04 RR GG BB"
+ },
+ {
+  "id": "c04L",
+  "template": "04 03 RR GG BB"
+ },
+ {
+  "id": "c05",
+  "template": "05 RR GG BB"
+ },
+ {
+  "id": "c05L",
+  "template": "05 03 RR GG BB"
+ },
+ {
+  "id": "c06",
+  "template": "06 RR GG BB"
+ },
+ {
+  "id": "c06L",
+  "template": "06 03 RR GG BB"
+ },
+ {
+  "id": "c0c",
+  "template": "0c RR GG BB"
+ },
+ {
+  "id": "c0cL",
+  "template": "0c 03 RR GG BB"
+ },
+ {
+  "id": "c0e",
+  "template": "0e RR GG BB"
+ },
+ {
+  "id": "c0eL",
+  "template": "0e 03 RR GG BB"
+ },
+ {
+  "id": "c21",
+  "template": "21 RR GG BB"
+ },
+ {
+  "id": "c21L",
+  "template": "21 03 RR GG BB"
+ },
+ {
+  "id": "c22",
+  "template": "22 RR GG BB"
+ },
+ {
+  "id": "c22L",
+  "template": "22 03 RR GG BB"
+ },
+ {
+  "id": "c26",
+  "template": "26 RR GG BB"
+ },
+ {
+  "id": "c26L",
+  "template": "26 03 RR GG BB"
+ }
+]

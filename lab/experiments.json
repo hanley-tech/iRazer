@@ -1,0 +1,259 @@
+[
+ {
+  "id": "respectrum",
+  "title": "RE-RUN: classic effect 0x04 \u2014 PLEASE NOTE what it looks like",
+  "detail": "This changed last time. Describe in the note: cycling all-same-color? moving wave? faster/slower?",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 04"
+   }
+  ]
+ },
+ {
+  "id": "cl-00",
+  "title": "Classic effect 0x00 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 00"
+   }
+  ]
+ },
+ {
+  "id": "cl-01",
+  "title": "Classic effect 0x01 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 01"
+   }
+  ]
+ },
+ {
+  "id": "cl-02",
+  "title": "Classic effect 0x02 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 02"
+   }
+  ]
+ },
+ {
+  "id": "cl-03",
+  "title": "Classic effect 0x03 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 03"
+   }
+  ]
+ },
+ {
+  "id": "cl-05",
+  "title": "Classic effect 0x05 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 05"
+   }
+  ]
+ },
+ {
+  "id": "cl-06",
+  "title": "Classic effect 0x06 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 06"
+   }
+  ]
+ },
+ {
+  "id": "cl-07",
+  "title": "Classic effect 0x07 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 07"
+   }
+  ]
+ },
+ {
+  "id": "cl-08",
+  "title": "Classic effect 0x08 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 08"
+   }
+  ]
+ },
+ {
+  "id": "cl-09",
+  "title": "Classic effect 0x09 (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 09"
+   }
+  ]
+ },
+ {
+  "id": "cl-0a",
+  "title": "Classic effect 0x0a (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 0a"
+   }
+  ]
+ },
+ {
+  "id": "cl-0b",
+  "title": "Classic effect 0x0b (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 0b"
+   }
+  ]
+ },
+ {
+  "id": "cl-0c",
+  "title": "Classic effect 0x0c (bare)",
+  "detail": "Note anything: off, color change, motion change",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 0c"
+   }
+  ]
+ },
+ {
+  "id": "cl-wave-d1",
+  "title": "Classic wave dir 1",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 02 01 01"
+   }
+  ]
+ },
+ {
+  "id": "cl-wave-d2",
+  "title": "Classic wave dir 2",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 02 01 02"
+   }
+  ]
+ },
+ {
+  "id": "cl-react",
+  "title": "Classic reactive speed2 RED",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 05 02 02 ff 00 00"
+   }
+  ]
+ },
+ {
+  "id": "cl-breath1",
+  "title": "Classic breathing 1-color RED",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 05 03 01 ff 00 00"
+   }
+  ]
+ },
+ {
+  "id": "cl-static4",
+  "title": "Classic static RED (4-byte form)",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 04 06 ff 00 00"
+   }
+  ]
+ },
+ {
+  "id": "cl-static5",
+  "title": "Classic static RED (5-byte form w/ leading 01)",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 05 06 01 ff 00 00"
+   }
+  ]
+ },
+ {
+  "id": "cl-starl",
+  "title": "Classic starlight RED",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 07 19 01 02 ff 00 00"
+   }
+  ]
+ },
+ {
+  "id": "spd-00",
+  "title": "Speed register probe: extended var1 write 0 (was 'slower'?)",
+  "detail": "Compare animation speed before/after",
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "0f 02 06 01 00 00 00 00 00"
+   }
+  ]
+ },
+ {
+  "id": "spd-ff",
+  "title": "Speed register probe: last byte ff",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "0f 02 06 01 00 00 00 00 ff"
+   }
+  ]
+ },
+ {
+  "id": "restore",
+  "title": "Restore: classic effect 0x04 + brightness 255",
+  "detail": null,
+  "packets": [
+   {
+    "tx": "1f",
+    "bytes": "03 0a 01 04"
+   },
+   {
+    "tx": "1f",
+    "bytes": "0f 04 03 01 00 ff"
+   }
+  ]
+ }
+]

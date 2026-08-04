@@ -1,0 +1,21 @@
+# Swift / SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+
+# Build output
+build/
+*.app
+
+# macOS
+.DS_Store
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+
+# Local reverse-engineering result logs (keep the *inputs*, ignore captured runs)
+lab/*results*.jsonl
+lab/console.jsonl
+/tmp/

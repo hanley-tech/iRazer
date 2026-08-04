@@ -1,0 +1,150 @@
+<div align="center">
+
+# iRazer
+
+### Open-source Razer control for macOS — a native Synapse alternative for Apple Silicon.
+
+Control your Razer devices on your Mac without Razer Synapse: RGB, EQ, volume,
+brightness, and power settings, in a clean native app. **First supported device:
+the Razer Nommo V2.** Built to grow into full "Synapse for Mac" coverage.
+
+*Not affiliated with, authorized, or endorsed by Razer Inc. "Razer", "Synapse",
+and "Chroma" are trademarks of Razer Inc., used here only to describe compatibility.*
+
+</div>
+
+---
+
+## Why this exists
+
+Razer Synapse doesn't run on macOS. If you own Razer gear and a Mac, you get no
+lighting control, no EQ, no device settings — nothing. **iRazer is an open-source,
+native macOS app that talks to Razer hardware directly over USB and Bluetooth**, so
+you can control your devices from your Mac (Apple Silicon and Intel) with no Razer
+account, no background services, and no proprietary software.
+
+It's built device-by-device from real reverse-engineering. The Razer Nommo V2 is the
+first fully-integrated device; the architecture is designed so more Razer devices
+(keyboards, mice, speakers, headsets) can be added over time.
+
+## Features
+
+- 🎛️ **Native macOS app** (SwiftUI) — menu-bar-friendly, no daemon, no login.
+- 🔌 **Direct device control** over USB HID and Bluetooth LE — no Synapse, no kext, no root.
+- 🍏 **Apple Silicon–first** (M1/M2/M3/M4), also runs on Intel Macs.
+- 🧰 **CLI tools + reverse-engineering harness** for adding new devices.
+- 🔓 **MIT-licensed**, community-driven.
+
+## Supported devices
+
+| Device | USB PID | Audio / EQ | Volume | Brightness | RGB color / effects | Power |
+|---|---|:--:|:--:|:--:|:--:|:--:|
+| **Razer Nommo V2** | `1532:055C` | ✅ | ✅ | ✅ | 🚧 Bluetooth (in progress) | ⚙️ keep-awake |
+
+Legend: ✅ working · 🚧 in progress · ⚙️ workaround. See
+[`docs/DEVICES.md`](docs/DEVICES.md) for the details and
+[`docs/FINDINGS.md`](docs/FINDINGS.md) for the full protocol reverse-engineering log.
+
+**Want your device supported?** See [Adding a device](docs/ADDING_DEVICES.md) — the
+whole point of the project is to grow this table. Captures and PRs welcome.
+
+## Install
+
+**Download (DMG):** grab `iRazer-x.y.z.dmg` from
+[Releases](https://github.com/<you>/iRazer/releases), open it, drag **iRazer** to
+Applications. The app isn't notarized yet, so on first launch **right-click →
+Open** once to get past Gatekeeper (a paid Apple Developer ID is needed to remove
+that warning — contributions/sponsorship welcome).
+
+**Build from source:** requires macOS 14+ and the Swift toolchain (Xcode or CLT).
+
+```bash
+git clone https://github.com/<you>/iRazer.git
+cd iRazer
+./Scripts/make-app.sh        # builds build/iRazer.app
+open build/iRazer.app
+./Scripts/make-dmg.sh        # optional: package a DMG in build/
+```
+
+> Build note: `make-app.sh` uses `swift build --build-system native` because the
+> default SwiftBuild backend errors with "Unknown error parsing property list" on
+> some toolchains.
+
+### Menu-bar app
+
+iRazer lives in the **menu bar**, not the Dock. Closing the window doesn't quit it —
+it stays resident and available from the ⚡ menu-bar item, which has quick
+brightness/volume/keep-awake controls and "Open iRazer…". Footprint is small (the
+keep-awake audio engine only runs when enabled; otherwise it's just a light 3-second
+connection poll). Quit from the menu-bar item.
+
+## The app
+
+Three tabs:
+
+- **Control** — device status, lighting (brightness live; color/effects gated on the
+  Bluetooth work), 10-band EQ + presets, master volume, and a **Keep speakers awake**
+  toggle (plays a brief inaudible pulse once a minute to defeat audio-idle standby).
+- **Lab** — steps through reverse-engineering experiment batches and logs verdicts.
+- **Console** — free-form packet composer, live input-report monitor, and sweeps.
+
+## Command-line tools
+
+For power users and contributors (`swift build --build-system native`, then `.build/debug/…`):
+
+- **`nommoctl`** — USB HID control: `list`, `info`, `probe`, `volume`, `brightness`,
+  `rgb`, `effect`, `idle-timeout`, `raw`.
+- **`nommoble`** — Bluetooth LE: `scan`, `dump`, `opsweep`, `getall`, `probe`, `send`, `raw`.
+- **`nommofuzz` / `nommoblefuzz`** — camera-feedback protocol fuzzers that classify
+  the LED state automatically (no human "did it change?" needed).
+
+## How it works
+
+Razer devices speak a well-documented 90-byte command protocol (the same one
+[OpenRazer](https://github.com/openrazer/openrazer) implements on Linux). iRazer
+sends it from userspace via `IOHIDManager` (USB) and `CoreBluetooth` (BLE):
+
+- **USB HID** carries audio/EQ/volume/brightness/device-info on the Nommo V2.
+- **Bluetooth LE** carries the RGB lighting on the 2023 "Actions"-chipset Nommo V2 —
+  a channel no open project had touched before this one. Grammar decoded; specific
+  color command still being pinned (see [`docs/FINDINGS.md`](docs/FINDINGS.md)).
+
+Full protocol map: [`docs/PROTOCOL.md`](docs/PROTOCOL.md).
+
+## Roadmap
+
+- [x] Nommo V2: detection, EQ, volume, brightness, keep-awake
+- [x] Reverse-engineering harness (CLI + camera fuzzers)
+- [x] Nommo V2 Bluetooth channel + command grammar decoded
+- [x] Menu-bar resident app + device dashboard (all Razer gear listed)
+- [x] DMG packaging
+- [ ] Nommo V2 RGB color/effects over Bluetooth
+- [ ] Launch-at-login
+- [ ] More devices (Kraken, Leviathan, BlackWidow, DeathAdder, …) — contributions welcome
+- [ ] Signed/notarized release + Homebrew cask
+
+## Contributing
+
+New devices, protocol captures, and fixes are all welcome — see
+[CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ADDING_DEVICES.md](docs/ADDING_DEVICES.md).
+The fastest way to help: capture your device's USB or Bluetooth traffic and open an issue.
+
+## Related projects
+
+- [OpenRazer](https://github.com/openrazer/openrazer) — Linux driver/daemon (protocol reference)
+- [razer-macos](https://github.com/1kc/razer-macos) — macOS lighting app (older device generations)
+- [Polychromatic](https://github.com/polychromatic/polychromatic) — OpenRazer frontend
+
+iRazer targets newer, unsupported devices (starting with the 2023 Nommo V2) and
+covers audio/EQ/power, not just lighting.
+
+## License
+
+[MIT](LICENSE). Not affiliated with Razer Inc.
+
+---
+
+<div align="center">
+<sub>Keywords: Razer Synapse for Mac · Razer Synapse macOS alternative · control Razer
+on Mac · Razer Chroma macOS · Razer Nommo V2 Mac · Apple Silicon Razer · open-source Razer driver.</sub>
+</div>
