@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "iRazer — open-source Razer control for macOS"
+message: "If you use or reference iRazer, please cite it using these metadata."
+type: software
+abstract: >-
+  iRazer is a free, open-source native macOS application that controls Razer
+  devices (RGB lighting, EQ, volume, brightness, power) without Razer Synapse —
+  a Synapse alternative for Apple Silicon and Intel Macs. The first supported
+  device is the Razer Nommo V2.
+authors:
+  - name: "hanley-tech and iRazer contributors"
+repository-code: "https://github.com/hanley-tech/iRazer"
+url: "https://github.com/hanley-tech/iRazer"
+license: MIT
+keywords:
+  - razer
+  - macos
+  - razer synapse alternative
+  - razer chroma
+  - apple silicon
+  - rgb
+  - razer nommo v2

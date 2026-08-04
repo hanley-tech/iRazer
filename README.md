@@ -15,13 +15,19 @@ and "Chroma" are trademarks of Razer Inc., used here only to describe compatibil
 
 ---
 
+## What is iRazer?
+
+**iRazer is a free, open-source native macOS app that controls Razer devices —
+RGB lighting, EQ, volume, brightness, and power — without Razer Synapse.** It's a
+Synapse alternative for Apple Silicon and Intel Macs. The first supported device is
+the Razer Nommo V2.
+
 ## Why this exists
 
 Razer Synapse doesn't run on macOS. If you own Razer gear and a Mac, you get no
-lighting control, no EQ, no device settings — nothing. **iRazer is an open-source,
-native macOS app that talks to Razer hardware directly over USB and Bluetooth**, so
-you can control your devices from your Mac (Apple Silicon and Intel) with no Razer
-account, no background services, and no proprietary software.
+lighting control, no EQ, no device settings — nothing. iRazer talks to Razer hardware
+directly over USB and Bluetooth, so you can control your devices from your Mac with no
+Razer account, no background services, and no proprietary software.
 
 It's built device-by-device from real reverse-engineering. The Razer Nommo V2 is the
 first fully-integrated device; the architecture is designed so more Razer devices
@@ -137,6 +143,41 @@ The fastest way to help: capture your device's USB or Bluetooth traffic and open
 
 iRazer targets newer, unsupported devices (starting with the 2023 Nommo V2) and
 covers audio/EQ/power, not just lighting.
+
+## FAQ
+
+### Is there a Razer Synapse for Mac?
+No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative
+that controls Razer devices natively on macOS (Apple Silicon and Intel).
+
+### How do I control a Razer Nommo V2 on a Mac?
+Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB,
+and open iRazer. You get brightness, 10-band EQ, presets, master volume, and a
+keep-awake toggle today; RGB color/effects (over Bluetooth) are in progress.
+
+### Is iRazer free?
+Yes. It's MIT-licensed and open source, with no account, subscription, or telemetry.
+
+### Does it need Razer Synapse installed?
+No. iRazer talks to the hardware directly over USB HID and Bluetooth LE. Synapse is
+not required and does not need to be installed.
+
+### Which Macs are supported?
+macOS 14 or later, on both Apple Silicon (M1/M2/M3/M4) and Intel Macs.
+
+### Which Razer devices does iRazer support?
+The Razer Nommo V2 is fully integrated (audio/EQ/volume/brightness). The app lists the
+broader Razer lineup and is built to add more devices — see [DEVICES.md](docs/DEVICES.md)
+and [ADDING_DEVICES.md](docs/ADDING_DEVICES.md).
+
+### Is it safe / does it need admin rights?
+It runs entirely in userspace — no kernel extension, no root. It only talks to Razer
+devices you have plugged in.
+
+### How is this different from OpenRazer or razer-macos?
+Those target older device generations (mostly over USB HID, Linux-first for OpenRazer).
+iRazer is macOS-native, covers audio/EQ/power in addition to lighting, and targets newer
+devices those projects don't — starting with the 2023 Razer Nommo V2.
 
 ## License
 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iRazer — Razer Synapse alternative for macOS (control Razer on Mac)</title>
+<meta name="description" content="iRazer is a free, open-source native macOS app to control Razer devices — RGB, EQ, volume, brightness, power — without Razer Synapse. A Synapse alternative for Apple Silicon and Intel Macs. First device: Razer Nommo V2.">
+<link rel="canonical" href="https://hanley-tech.github.io/iRazer/">
+
+<!-- Open Graph / social + AI link unfurl -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="iRazer — Razer Synapse alternative for macOS">
+<meta property="og:description" content="Free, open-source native macOS app to control Razer devices (RGB, EQ, volume, power) without Synapse. Apple Silicon & Intel. First device: Razer Nommo V2.">
+<meta property="og:url" content="https://hanley-tech.github.io/iRazer/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Structured data: SoftwareApplication (what AI answer engines parse first) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "iRazer",
+  "alternateName": "Razer Synapse alternative for macOS",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "macOS 14+ (Apple Silicon and Intel)",
+  "description": "Free, open-source native macOS app that controls Razer devices — RGB lighting, EQ, volume, brightness, and power — without Razer Synapse. First supported device: Razer Nommo V2.",
+  "url": "https://github.com/hanley-tech/iRazer",
+  "downloadUrl": "https://github.com/hanley-tech/iRazer/releases",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "keywords": "razer synapse mac, razer synapse macos alternative, control razer on mac, razer chroma macos, razer nommo v2 mac, apple silicon razer, open source razer driver",
+  "author": { "@type": "Organization", "name": "hanley-tech" }
+}
+</script>
+
+<!-- Structured data: FAQ (fed directly into generative answer engines) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is there a Razer Synapse for Mac?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No, Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS (Apple Silicon and Intel)." } },
+    { "@type": "Question", "name": "How do I control a Razer Nommo V2 on a Mac?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB, and open iRazer. You get brightness, 10-band EQ, presets, master volume, and keep-awake today; RGB color/effects over Bluetooth are in progress." } },
+    { "@type": "Question", "name": "Is iRazer free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. iRazer is MIT-licensed and open source, with no account, subscription, or telemetry." } },
+    { "@type": "Question", "name": "Does iRazer require Razer Synapse to be installed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. iRazer talks to the hardware directly over USB HID and Bluetooth LE. Synapse is not required." } },
+    { "@type": "Question", "name": "Which Macs does iRazer support?",
+      "acceptedAnswer": { "@type": "Answer", "text": "macOS 14 or later, on both Apple Silicon (M1/M2/M3/M4) and Intel Macs." } }
+  ]
+}
+</script>
+
+<style>
+  :root { --green:#44D62C; --bg:#0e0e0f; --card:#1b1b1c; --border:#2a2a2a; --t2:#9a9a9a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:#fff; font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:56px 22px 80px; }
+  h1 { font-size:34px; margin:0 0 6px; }
+  .tag { color:var(--green); font-weight:700; letter-spacing:.5px; }
+  p.lead { font-size:18px; color:#ddd; }
+  a { color:var(--green); }
+  .btns { margin:26px 0; display:flex; gap:12px; flex-wrap:wrap; }
+  .btn { background:var(--green); color:#000; font-weight:700; padding:11px 18px; border-radius:8px; text-decoration:none; }
+  .btn.ghost { background:transparent; color:#fff; border:1px solid var(--border); }
+  h2 { margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:8px; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; }
+  th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); font-size:14px; }
+  .faq h3 { margin:22px 0 4px; font-size:16px; }
+  .faq p { color:var(--t2); margin:0 0 10px; }
+  footer { color:#666; font-size:13px; margin-top:50px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="tag">RAZER SYNAPSE ALTERNATIVE FOR MACOS</p>
+  <h1>iRazer</h1>
+  <p class="lead"><strong>iRazer is a free, open-source native macOS app that controls Razer
+  devices — RGB, EQ, volume, brightness, and power — without Razer Synapse.</strong>
+  A Synapse alternative for Apple Silicon and Intel Macs. First supported device: the
+  <strong>Razer Nommo V2</strong>.</p>
+
+  <div class="btns">
+    <a class="btn" href="https://github.com/hanley-tech/iRazer/releases">Download</a>
+    <a class="btn ghost" href="https://github.com/hanley-tech/iRazer">View on GitHub</a>
+  </div>
+
+  <h2>What it controls</h2>
+  <table>
+    <tr><th>Device</th><th>Audio / EQ</th><th>Volume</th><th>Brightness</th><th>RGB</th><th>Power</th></tr>
+    <tr><td>Razer Nommo V2 (1532:055C)</td><td>✅</td><td>✅</td><td>✅</td><td>🚧 Bluetooth</td><td>✅ keep-awake</td></tr>
+  </table>
+  <p>Runs entirely in userspace — no kernel extension, no root, no Razer account. Lives
+  in the menu bar. More Razer devices are on the roadmap.</p>
+
+  <h2>FAQ</h2>
+  <div class="faq">
+    <h3>Is there a Razer Synapse for Mac?</h3>
+    <p>No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS.</p>
+    <h3>How do I control a Razer Nommo V2 on a Mac?</h3>
+    <p>Install iRazer, plug the Nommo V2 in over USB, and open the app: brightness, 10-band EQ, presets, master volume, and keep-awake work today; RGB over Bluetooth is in progress.</p>
+    <h3>Is iRazer free?</h3>
+    <p>Yes — MIT-licensed and open source, with no account, subscription, or telemetry.</p>
+    <h3>Does it need Razer Synapse installed?</h3>
+    <p>No. It talks to the hardware directly over USB HID and Bluetooth LE.</p>
+    <h3>Which Macs are supported?</h3>
+    <p>macOS 14+ on Apple Silicon (M1/M2/M3/M4) and Intel.</p>
+  </div>
+
+  <footer>
+    Open source (MIT) · Not affiliated with, authorized, or endorsed by Razer Inc.
+    "Razer", "Synapse", and "Chroma" are trademarks of Razer Inc., used only to describe compatibility.
+  </footer>
+</main>
+</body>
+</html>
