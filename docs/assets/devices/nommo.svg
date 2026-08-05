@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" fill="none">
+  <!-- RGB rear-projection underglow -->
+  <ellipse cx="18" cy="43" rx="13" ry="3.2" fill="#44D62C" opacity="0.28"/>
+  <ellipse cx="46" cy="43" rx="13" ry="3.2" fill="#44D62C" opacity="0.28"/>
+  <g stroke="#44D62C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left speaker orb + driver + stand -->
+    <ellipse cx="18" cy="20" rx="11" ry="14.5"/>
+    <circle cx="18" cy="20" r="4.6"/>
+    <path d="M13 39h10M18 34.5V41"/>
+    <!-- right speaker orb + driver + stand -->
+    <ellipse cx="46" cy="20" rx="11" ry="14.5"/>
+    <circle cx="46" cy="20" r="4.6"/>
+    <path d="M41 39h10M46 34.5V41"/>
+  </g>
+</svg>

@@ -137,8 +137,13 @@ struct ContentView: View {
         HStack(alignment: .top, spacing: 14) {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Theme.card)
-                .frame(width: 56, height: 56)
-                .overlay(Image(systemName: d.category.icon).font(.system(size: 22)).foregroundStyle(Theme.text2))
+                .frame(width: 60, height: 60)
+                .overlay(
+                    DeviceGlyph(category: d.category,
+                                color: isConnected(d) ? Theme.green : Theme.text2,
+                                glow: isConnected(d))
+                        .frame(width: 42, height: 42)
+                )
                 .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Theme.border, lineWidth: 1))
             VStack(alignment: .leading, spacing: 5) {
                 Text(d.name).font(.system(size: 20, weight: .bold)).foregroundStyle(Theme.text)

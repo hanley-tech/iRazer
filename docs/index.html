@@ -115,11 +115,14 @@
   /* devices */
   .devgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media(min-width:760px){.devgrid{grid-template-columns:repeat(4,1fr)}}
-  .dev{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;font-size:13px;color:var(--t2)}
+  .dev{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 12px;text-align:center;font-size:12px;color:var(--t2);transition:border-color .15s,transform .15s}
+  .dev:hover{transform:translateY(-3px);border-color:rgba(68,214,44,.4)}
   .dev.on{border-color:rgba(68,214,44,.6);color:#fff}
-  .dev .dot{width:8px;height:8px;border-radius:50%;background:var(--t3);display:inline-block;margin-right:6px}
+  .dev .g{height:46px;margin-bottom:12px;opacity:.5}
+  .dev.on .g{opacity:1;filter:drop-shadow(0 0 10px rgba(68,214,44,.35))}
+  .dev .dot{width:8px;height:8px;border-radius:50%;background:var(--t3);display:inline-block;margin-right:6px;vertical-align:middle}
   .dev.on .dot{background:var(--green);box-shadow:0 0 8px var(--green)}
-  .dev b{display:block;color:#fff;font-size:14px;margin-top:6px}
+  .dev b{display:block;color:#fff;font-size:14px;margin-top:4px}
 
   /* faq */
   .faq{max-width:760px;margin:0 auto;display:grid;gap:12px}
@@ -183,14 +186,14 @@
     <h2>One app for your whole setup</h2>
     <p class="sectlead">The Razer Nommo V2 is fully supported today. More devices are on the roadmap — contributions welcome.</p>
     <div class="devgrid">
-      <div class="dev on"><span class="dot"></span>Live<b>Nommo V2</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>Leviathan V2</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>BlackWidow V4</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>DeathAdder V3</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>Kraken V3</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>Basilisk V3</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>Huntsman V3</b></div>
-      <div class="dev"><span class="dot"></span>Planned<b>+ your device</b></div>
+      <div class="dev on"><img class="g" src="assets/devices/nommo.svg" alt="Razer Nommo V2 speakers icon"><span class="dot"></span>Live<b>Nommo V2</b></div>
+      <div class="dev"><img class="g" src="assets/devices/soundbar.svg" alt="soundbar icon"><span class="dot"></span>Planned<b>Leviathan V2</b></div>
+      <div class="dev"><img class="g" src="assets/devices/keyboard.svg" alt="keyboard icon"><span class="dot"></span>Planned<b>BlackWidow V4</b></div>
+      <div class="dev"><img class="g" src="assets/devices/mouse.svg" alt="mouse icon"><span class="dot"></span>Planned<b>DeathAdder V3</b></div>
+      <div class="dev"><img class="g" src="assets/devices/headset.svg" alt="headset icon"><span class="dot"></span>Planned<b>Kraken V3</b></div>
+      <div class="dev"><img class="g" src="assets/devices/mouse.svg" alt="mouse icon"><span class="dot"></span>Planned<b>Basilisk V3</b></div>
+      <div class="dev"><img class="g" src="assets/devices/keyboard.svg" alt="keyboard icon"><span class="dot"></span>Planned<b>Huntsman V3</b></div>
+      <div class="dev"><img class="g" src="assets/devices/generic.svg" alt="add your device"><span class="dot"></span>Planned<b>+ your device</b></div>
     </div>
   </div>
 </section>

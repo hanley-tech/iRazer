@@ -56,6 +56,20 @@ first fully-integrated device; the architecture is designed so more Razer device
 
 ## Supported devices
 
+<div align="center">
+<img src="docs/assets/devices/nommo.svg" width="70" alt="Razer Nommo V2">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/assets/devices/soundbar.svg" width="70" alt="Leviathan">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/assets/devices/keyboard.svg" width="70" alt="keyboards">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/assets/devices/mouse.svg" width="70" alt="mice">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/assets/devices/headset.svg" width="70" alt="headsets">
+<br>
+<sub>Original minimalist device glyphs — no Razer imagery is bundled. The Nommo V2 is live; the rest are on the roadmap.</sub>
+</div>
+
 | Device | USB PID | Audio / EQ | Volume | Brightness | RGB color / effects | Power |
 |---|---|:--:|:--:|:--:|:--:|:--:|
 | **Razer Nommo V2** | `1532:055C` | ✅ | ✅ | ✅ | 🚧 Bluetooth (in progress) | ⚙️ keep-awake |
