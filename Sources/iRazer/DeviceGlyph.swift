@@ -10,10 +10,12 @@ struct DeviceGlyph: View {
 
     var body: some View {
         Canvas { ctx, size in
-            let s = min(size.width, size.height)
-            let ox = (size.width - s) / 2, oy = (size.height - s) / 2
-            // work in a 64x48 space, scaled to fit
-            let sx = s / 64, sy = s / 48
+            // Fit the 64x48 artwork with a SINGLE uniform scale so circles stay
+            // circular (non-uniform x/y scaling was turning the round speakers oval).
+            let scale = min(size.width / 64, size.height / 48)
+            let ox = (size.width - 64 * scale) / 2
+            let oy = (size.height - 48 * scale) / 2
+            let sx = scale, sy = scale
             func P(_ x: Double, _ y: Double) -> CGPoint { CGPoint(x: ox + x * sx, y: oy + y * sy) }
             let stroke = StrokeStyle(lineWidth: 2.4 * sx, lineCap: .round, lineJoin: .round)
             let ink = GraphicsContext.Shading.color(color)

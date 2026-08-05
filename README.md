@@ -19,7 +19,7 @@ brightness, and power — in a clean native app. First supported device: the **R
 
 <br>
 
-<img src="docs/assets/screenshot.png?v=3" alt="iRazer controlling a Razer Nommo V2 on macOS — device dashboard with lighting, EQ, and power" width="820">
+<img src="docs/assets/screenshot.png?v=4" alt="iRazer controlling a Razer Nommo V2 on macOS — device dashboard with lighting, EQ, and power" width="820">
 
 <sub>*Not affiliated with, authorized, or endorsed by Razer Inc. "Razer", "Synapse", and
 "Chroma" are trademarks of Razer Inc., used here only to describe compatibility.*</sub>
