@@ -1,15 +1,28 @@
 <div align="center">
 
-# iRazer
+# ⚡ iRazer
 
 ### Open-source Razer control for macOS — a native Synapse alternative for Apple Silicon.
 
-Control your Razer devices on your Mac without Razer Synapse: RGB, EQ, volume,
-brightness, and power settings, in a clean native app. **First supported device:
-the Razer Nommo V2.** Built to grow into full "Synapse for Mac" coverage.
+Control your Razer devices on your Mac **without Razer Synapse**: RGB, EQ, volume,
+brightness, and power — in a clean native app. First supported device: the **Razer Nommo V2**.
 
-*Not affiliated with, authorized, or endorsed by Razer Inc. "Razer", "Synapse",
-and "Chroma" are trademarks of Razer Inc., used here only to describe compatibility.*
+<br>
+
+[![Platform](https://img.shields.io/badge/macOS-14%2B-000?logo=apple&logoColor=white)](https://github.com/hanley-tech/iRazer)
+[![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-native-44D62C)](https://github.com/hanley-tech/iRazer)
+[![Swift](https://img.shields.io/badge/Swift-5.9-F05138?logo=swift&logoColor=white)](https://github.com/hanley-tech/iRazer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-44D62C.svg)](LICENSE)
+[![Website](https://img.shields.io/badge/website-hanley--tech.github.io%2FiRazer-44D62C)](https://hanley-tech.github.io/iRazer/)
+
+**[⬇ Download](https://github.com/hanley-tech/iRazer/releases) · [🌐 Website](https://hanley-tech.github.io/iRazer/) · [🧩 Add a device](docs/ADDING_DEVICES.md)**
+
+<br>
+
+<img src="docs/assets/screenshot.png" alt="iRazer controlling a Razer Nommo V2 on macOS — device dashboard with lighting, EQ, and power" width="820">
+
+<sub>*Not affiliated with, authorized, or endorsed by Razer Inc. "Razer", "Synapse", and
+"Chroma" are trademarks of Razer Inc., used here only to describe compatibility.*</sub>
 
 </div>
 

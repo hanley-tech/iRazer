@@ -7,14 +7,13 @@
 <meta name="description" content="iRazer is a free, open-source native macOS app to control Razer devices — RGB, EQ, volume, brightness, power — without Razer Synapse. A Synapse alternative for Apple Silicon and Intel Macs. First device: Razer Nommo V2.">
 <link rel="canonical" href="https://hanley-tech.github.io/iRazer/">
 
-<!-- Open Graph / social + AI link unfurl -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="iRazer — Razer Synapse alternative for macOS">
 <meta property="og:description" content="Free, open-source native macOS app to control Razer devices (RGB, EQ, volume, power) without Synapse. Apple Silicon & Intel. First device: Razer Nommo V2.">
 <meta property="og:url" content="https://hanley-tech.github.io/iRazer/">
+<meta property="og:image" content="https://hanley-tech.github.io/iRazer/assets/screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Structured data: SoftwareApplication (what AI answer engines parse first) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,6 +25,7 @@
   "description": "Free, open-source native macOS app that controls Razer devices — RGB lighting, EQ, volume, brightness, and power — without Razer Synapse. First supported device: Razer Nommo V2.",
   "url": "https://github.com/hanley-tech/iRazer",
   "downloadUrl": "https://github.com/hanley-tech/iRazer/releases",
+  "screenshot": "https://hanley-tech.github.io/iRazer/assets/screenshot.png",
   "license": "https://opensource.org/licenses/MIT",
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -33,87 +33,188 @@
   "author": { "@type": "Organization", "name": "hanley-tech" }
 }
 </script>
-
-<!-- Structured data: FAQ (fed directly into generative answer engines) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a Razer Synapse for Mac?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No, Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS (Apple Silicon and Intel)." } },
-    { "@type": "Question", "name": "How do I control a Razer Nommo V2 on a Mac?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB, and open iRazer. You get brightness, 10-band EQ, presets, master volume, and keep-awake today; RGB color/effects over Bluetooth are in progress." } },
-    { "@type": "Question", "name": "Is iRazer free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. iRazer is MIT-licensed and open source, with no account, subscription, or telemetry." } },
-    { "@type": "Question", "name": "Does iRazer require Razer Synapse to be installed?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. iRazer talks to the hardware directly over USB HID and Bluetooth LE. Synapse is not required." } },
-    { "@type": "Question", "name": "Which Macs does iRazer support?",
-      "acceptedAnswer": { "@type": "Answer", "text": "macOS 14 or later, on both Apple Silicon (M1/M2/M3/M4) and Intel Macs." } }
+    { "@type": "Question", "name": "Is there a Razer Synapse for Mac?", "acceptedAnswer": { "@type": "Answer", "text": "No, Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS (Apple Silicon and Intel)." } },
+    { "@type": "Question", "name": "How do I control a Razer Nommo V2 on a Mac?", "acceptedAnswer": { "@type": "Answer", "text": "Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB, and open iRazer. You get brightness, 10-band EQ, presets, master volume, and keep-awake today; RGB color/effects over Bluetooth are in progress." } },
+    { "@type": "Question", "name": "Is iRazer free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. iRazer is MIT-licensed and open source, with no account, subscription, or telemetry." } },
+    { "@type": "Question", "name": "Does iRazer require Razer Synapse to be installed?", "acceptedAnswer": { "@type": "Answer", "text": "No. iRazer talks to the hardware directly over USB HID and Bluetooth LE. Synapse is not required." } },
+    { "@type": "Question", "name": "Which Macs does iRazer support?", "acceptedAnswer": { "@type": "Answer", "text": "macOS 14 or later, on both Apple Silicon (M1/M2/M3/M4) and Intel Macs." } }
   ]
 }
 </script>
 
 <style>
-  :root { --green:#44D62C; --bg:#0e0e0f; --card:#1b1b1c; --border:#2a2a2a; --t2:#9a9a9a; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:#fff; font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-  main { max-width:820px; margin:0 auto; padding:56px 22px 80px; }
-  h1 { font-size:34px; margin:0 0 6px; }
-  .tag { color:var(--green); font-weight:700; letter-spacing:.5px; }
-  p.lead { font-size:18px; color:#ddd; }
-  a { color:var(--green); }
-  .btns { margin:26px 0; display:flex; gap:12px; flex-wrap:wrap; }
-  .btn { background:var(--green); color:#000; font-weight:700; padding:11px 18px; border-radius:8px; text-decoration:none; }
-  .btn.ghost { background:transparent; color:#fff; border:1px solid var(--border); }
-  h2 { margin-top:40px; border-bottom:1px solid var(--border); padding-bottom:8px; }
-  table { width:100%; border-collapse:collapse; margin:14px 0; }
-  th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); font-size:14px; }
-  .faq h3 { margin:22px 0 4px; font-size:16px; }
-  .faq p { color:var(--t2); margin:0 0 10px; }
-  footer { color:#666; font-size:13px; margin-top:50px; }
+  :root{--green:#44D62C;--green2:#7CFF4F;--bg:#0a0a0b;--card:#151517;--border:#26262a;--t2:#a2a2a8;--t3:#6d6d74}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:#fff;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(10,10,11,.72);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:2px}
+  .brand svg{filter:drop-shadow(0 0 6px var(--green))}
+  .navlinks{display:flex;gap:18px;align-items:center}
+  .navlinks a{color:var(--t2);font-size:14px}
+  .navlinks a:hover{color:#fff}
+  .ghbtn{border:1px solid var(--border);padding:7px 14px;border-radius:8px;font-size:13px;color:#fff}
+
+  /* hero */
+  .hero{position:relative;text-align:center;padding:70px 0 40px;overflow:hidden}
+  .glow{position:absolute;inset:0;z-index:-1;background:
+     radial-gradient(600px 340px at 50% -6%,rgba(68,214,44,.28),transparent 70%),
+     radial-gradient(700px 500px at 85% 20%,rgba(68,214,44,.10),transparent 60%)}
+  .grid{position:absolute;inset:0;z-index:-1;opacity:.35;
+     background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+     background-size:46px 46px;mask-image:radial-gradient(circle at 50% 0,#000,transparent 72%)}
+  .pill{display:inline-block;border:1px solid rgba(68,214,44,.4);color:var(--green);background:rgba(68,214,44,.08);
+     padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:1.4px;margin-bottom:22px}
+  h1{font-size:clamp(34px,7vw,64px);line-height:1.05;font-weight:900;letter-spacing:-1px}
+  h1 .g{background:linear-gradient(90deg,var(--green),var(--green2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{max-width:660px;margin:20px auto 0;font-size:clamp(16px,2.4vw,20px);color:var(--t2)}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 8px}
+  .btn{background:var(--green);color:#000;font-weight:800;padding:13px 24px;border-radius:10px;font-size:15px;
+     box-shadow:0 0 30px rgba(68,214,44,.4);transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(68,214,44,.6)}
+  .btn.ghost{background:transparent;color:#fff;border:1px solid var(--border);box-shadow:none}
+  .sub{color:var(--t3);font-size:13px;margin-top:6px}
+
+  /* chroma animated bar */
+  .chroma{height:4px;width:100%;margin:26px 0 0;border-radius:4px;
+     background:linear-gradient(90deg,#ff004c,#ff8a00,#f5ff00,#44D62C,#00e0ff,#6a5cff,#ff00c8,#ff004c);
+     background-size:200% 100%;animation:slide 6s linear infinite;filter:saturate(1.2)}
+  @keyframes slide{to{background-position:200% 0}}
+
+  /* screenshot */
+  .shot{margin:44px auto 0;max-width:900px;border-radius:14px;overflow:hidden;border:1px solid var(--border);
+     box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 80px rgba(68,214,44,.15)}
+  .shot img{display:block;width:100%}
+
+  /* sections */
+  section{padding:64px 0}
+  .eyebrow{color:var(--green);font-size:12px;font-weight:800;letter-spacing:2px;text-align:center}
+  h2{font-size:clamp(26px,4vw,38px);font-weight:800;text-align:center;margin:8px 0 8px;letter-spacing:-.5px}
+  .sectlead{text-align:center;color:var(--t2);max-width:560px;margin:0 auto 36px}
+
+  .cards{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
+  @media(min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+  .feat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color .15s,transform .15s}
+  .feat:hover{border-color:rgba(68,214,44,.5);transform:translateY(-3px)}
+  .feat .ic{width:42px;height:42px;border-radius:10px;background:rgba(68,214,44,.12);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .feat h3{font-size:16px;margin-bottom:6px}
+  .feat p{color:var(--t2);font-size:14px}
+
+  /* devices */
+  .devgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(min-width:760px){.devgrid{grid-template-columns:repeat(4,1fr)}}
+  .dev{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;font-size:13px;color:var(--t2)}
+  .dev.on{border-color:rgba(68,214,44,.6);color:#fff}
+  .dev .dot{width:8px;height:8px;border-radius:50%;background:var(--t3);display:inline-block;margin-right:6px}
+  .dev.on .dot{background:var(--green);box-shadow:0 0 8px var(--green)}
+  .dev b{display:block;color:#fff;font-size:14px;margin-top:6px}
+
+  /* faq */
+  .faq{max-width:760px;margin:0 auto;display:grid;gap:12px}
+  .qa{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+  .qa h3{font-size:16px;margin-bottom:6px}
+  .qa p{color:var(--t2);font-size:14px}
+
+  footer{border-top:1px solid var(--border);padding:34px 0;text-align:center;color:var(--t3);font-size:13px}
+  .final{text-align:center}
 </style>
 </head>
 <body>
-<main>
-  <p class="tag">RAZER SYNAPSE ALTERNATIVE FOR MACOS</p>
-  <h1>iRazer</h1>
-  <p class="lead"><strong>iRazer is a free, open-source native macOS app that controls Razer
-  devices — RGB, EQ, volume, brightness, and power — without Razer Synapse.</strong>
-  A Synapse alternative for Apple Silicon and Intel Macs. First supported device: the
-  <strong>Razer Nommo V2</strong>.</p>
 
-  <div class="btns">
-    <a class="btn" href="https://github.com/hanley-tech/iRazer/releases">Download</a>
-    <a class="btn ghost" href="https://github.com/hanley-tech/iRazer">View on GitHub</a>
+<nav><div class="wrap">
+  <div class="brand"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6h18l-4 6 4 6H3l4-6-4-6z" fill="#44D62C"/></svg>IRAZER</div>
+  <div class="navlinks">
+    <a href="#features">Features</a>
+    <a href="#devices">Devices</a>
+    <a href="#faq">FAQ</a>
+    <a class="ghbtn" href="https://github.com/hanley-tech/iRazer">GitHub ★</a>
   </div>
+</div></nav>
 
-  <h2>What it controls</h2>
-  <table>
-    <tr><th>Device</th><th>Audio / EQ</th><th>Volume</th><th>Brightness</th><th>RGB</th><th>Power</th></tr>
-    <tr><td>Razer Nommo V2 (1532:055C)</td><td>✅</td><td>✅</td><td>✅</td><td>🚧 Bluetooth</td><td>✅ keep-awake</td></tr>
-  </table>
-  <p>Runs entirely in userspace — no kernel extension, no root, no Razer account. Lives
-  in the menu bar. More Razer devices are on the roadmap.</p>
-
-  <h2>FAQ</h2>
-  <div class="faq">
-    <h3>Is there a Razer Synapse for Mac?</h3>
-    <p>No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS.</p>
-    <h3>How do I control a Razer Nommo V2 on a Mac?</h3>
-    <p>Install iRazer, plug the Nommo V2 in over USB, and open the app: brightness, 10-band EQ, presets, master volume, and keep-awake work today; RGB over Bluetooth is in progress.</p>
-    <h3>Is iRazer free?</h3>
-    <p>Yes — MIT-licensed and open source, with no account, subscription, or telemetry.</p>
-    <h3>Does it need Razer Synapse installed?</h3>
-    <p>No. It talks to the hardware directly over USB HID and Bluetooth LE.</p>
-    <h3>Which Macs are supported?</h3>
-    <p>macOS 14+ on Apple Silicon (M1/M2/M3/M4) and Intel.</p>
+<header class="hero">
+  <div class="glow"></div><div class="grid"></div>
+  <div class="wrap">
+    <span class="pill">RAZER SYNAPSE ALTERNATIVE FOR MACOS</span>
+    <h1>Control your <span class="g">Razer</span> gear<br>on your Mac.</h1>
+    <p class="lead">iRazer is a free, open-source native macOS app to control Razer devices —
+      RGB, EQ, volume, brightness &amp; power — <strong>without Razer Synapse</strong>.
+      Apple Silicon &amp; Intel. First device: the Razer Nommo V2.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/hanley-tech/iRazer/releases">↓ Download for macOS</a>
+      <a class="btn ghost" href="https://github.com/hanley-tech/iRazer">View source</a>
+    </div>
+    <div class="sub">Free &amp; MIT-licensed · no account · no daemon · lives in your menu bar</div>
+    <div class="chroma"></div>
+    <div class="shot"><img src="assets/screenshot.png" alt="iRazer app controlling a Razer Nommo V2 on macOS — device dashboard with lighting, EQ and power"></div>
   </div>
+</header>
 
-  <footer>
-    Open source (MIT) · Not affiliated with, authorized, or endorsed by Razer Inc.
-    "Razer", "Synapse", and "Chroma" are trademarks of Razer Inc., used only to describe compatibility.
-  </footer>
-</main>
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow">WHY IRAZER</div>
+    <h2>Everything Synapse won't do on a Mac</h2>
+    <p class="sectlead">Native, direct-to-hardware control over USB and Bluetooth. No proprietary software required.</p>
+    <div class="cards">
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3>No Synapse needed</h3><p>Talks to Razer hardware directly — no Razer account, no background service, no Windows.</p></div>
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div><h3>Apple Silicon–first</h3><p>A modern SwiftUI app built for M1/M2/M3/M4 (and Intel). Runs entirely in userspace.</p></div>
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><path d="M4 12h4l3-8 4 16 3-8h2"/></svg></div><h3>RGB · EQ · Volume</h3><p>Brightness, 10-band EQ &amp; presets, master volume — with RGB effects on the way.</p></div>
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><rect x="2" y="5" width="20" height="4" rx="1"/><path d="M6 12v7M18 12v7"/></svg></div><h3>Menu-bar app</h3><p>Lives in the menu bar with quick controls. Close the window; it stays resident.</p></div>
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M8 12l3 3 5-6"/></svg></div><h3>Free &amp; open source</h3><p>MIT-licensed, no telemetry. Inspect it, build it, extend it, ship a device.</p></div>
+      <div class="feat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#44D62C" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div><h3>Full device dashboard</h3><p>See all your Razer gear in one place — connected or not — like a real Synapse.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="devices" style="background:#0d0d0f">
+  <div class="wrap">
+    <div class="eyebrow">SUPPORTED &amp; PLANNED</div>
+    <h2>One app for your whole setup</h2>
+    <p class="sectlead">The Razer Nommo V2 is fully supported today. More devices are on the roadmap — contributions welcome.</p>
+    <div class="devgrid">
+      <div class="dev on"><span class="dot"></span>Live<b>Nommo V2</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>Leviathan V2</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>BlackWidow V4</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>DeathAdder V3</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>Kraken V3</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>Basilisk V3</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>Huntsman V3</b></div>
+      <div class="dev"><span class="dot"></span>Planned<b>+ your device</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions, answered</h2>
+    <div class="faq" style="margin-top:30px">
+      <div class="qa"><h3>Is there a Razer Synapse for Mac?</h3><p>No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS.</p></div>
+      <div class="qa"><h3>How do I control a Razer Nommo V2 on a Mac?</h3><p>Install iRazer, plug the Nommo V2 in over USB, and open the app: brightness, 10-band EQ, presets, master volume, and keep-awake work today; RGB over Bluetooth is in progress.</p></div>
+      <div class="qa"><h3>Is iRazer free?</h3><p>Yes — MIT-licensed and open source, with no account, subscription, or telemetry.</p></div>
+      <div class="qa"><h3>Does it need Razer Synapse installed?</h3><p>No. It talks to the hardware directly over USB HID and Bluetooth LE.</p></div>
+      <div class="qa"><h3>Which Macs are supported?</h3><p>macOS 14+ on Apple Silicon (M1/M2/M3/M4) and Intel.</p></div>
+      <div class="qa"><h3>Is it safe / does it need admin rights?</h3><p>It runs entirely in userspace — no kernel extension, no root. It only talks to Razer devices you plug in.</p></div>
+    </div>
+    <div class="final" style="margin-top:44px">
+      <a class="btn" href="https://github.com/hanley-tech/iRazer">Get iRazer on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Open source (MIT) · Not affiliated with, authorized, or endorsed by Razer Inc.<br>
+  "Razer", "Synapse", and "Chroma" are trademarks of Razer Inc., used only to describe compatibility.
+</footer>
 </body>
 </html>
