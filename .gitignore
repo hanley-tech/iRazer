@@ -19,3 +19,6 @@ xcuserdata/
 lab/*results*.jsonl
 lab/console.jsonl
 /tmp/
+
+# Playwright MCP scratch
+.playwright-mcp/
