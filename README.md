@@ -192,17 +192,6 @@ covers audio/EQ/power, not just lighting.
 No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative
 that controls Razer devices natively on macOS (Apple Silicon and Intel).
 
-### Why does my Razer Nommo V2 keep turning off / going to sleep, and how do I stop it?
-The Nommo V2 powers down after a period of audio silence, and its standby timer can't
-be changed on the device (the firmware register is read-only). iRazer fixes this with a
-**Keep speakers awake** toggle that plays a brief inaudible pulse once a minute, so the
-speakers never idle out. This is the main reason iRazer was built.
-
-### How do I control a Razer Nommo V2 on a Mac?
-Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB,
-and open iRazer. You get brightness, 10-band EQ, presets, master volume, and a
-keep-awake toggle today; RGB color/effects (over Bluetooth) are in progress.
-
 ### Is iRazer free?
 Yes. It's MIT-licensed and open source, with no account, subscription, or telemetry.
 
@@ -226,6 +215,16 @@ devices you have plugged in.
 Those target older device generations (mostly over USB HID, Linux-first for OpenRazer).
 iRazer is macOS-native, covers audio/EQ/power in addition to lighting, and targets newer
 devices those projects don't — starting with the 2023 Razer Nommo V2.
+
+### Device-specific help
+
+**How do I control a Razer Nommo V2 on a Mac?** Install iRazer, plug the Nommo V2 in
+over USB, and open it: brightness, 10-band EQ, presets, master volume, and keep-awake
+work today; RGB over Bluetooth is in progress.
+
+**Why does my Razer Nommo V2 keep turning off / going to sleep?** It powers down after
+audio silence and its standby timer is read-only on the device — turn on **Keep speakers
+awake** in iRazer to stop it. Full Nommo V2 guide: <https://hanley-tech.github.io/iRazer/nommo-v2.html>
 
 ## License
 
