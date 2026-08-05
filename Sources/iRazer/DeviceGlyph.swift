@@ -29,13 +29,14 @@ struct DeviceGlyph: View {
 
             switch category {
             case .speakers:
-                ctx.fill(ellipse(18, 43, 13, 3.2), with: underglow)
-                ctx.fill(ellipse(46, 43, 13, 3.2), with: underglow)
+                // Round spheres (the Nommo V2 speakers are round, not oval).
+                ctx.fill(ellipse(18, 43, 11, 3), with: underglow)
+                ctx.fill(ellipse(46, 43, 11, 3), with: underglow)
                 for cx in [18.0, 46.0] {
-                    ctx.stroke(ellipse(cx, 20, 11, 14.5), with: ink, style: stroke)
-                    ctx.stroke(ellipse(cx, 20, 4.6, 4.6), with: ink, style: stroke)
-                    ctx.stroke(line(cx - 5, 39, cx + 5, 39), with: ink, style: stroke)
-                    ctx.stroke(line(cx, 34.5, cx, 41), with: ink, style: stroke)
+                    ctx.stroke(ellipse(cx, 18, 11, 11), with: ink, style: stroke)     // round body
+                    ctx.stroke(ellipse(cx, 18, 4.6, 4.6), with: ink, style: stroke)   // driver
+                    ctx.stroke(line(cx, 29, cx, 37), with: ink, style: stroke)        // neck
+                    ctx.stroke(line(cx - 5, 38, cx + 5, 38), with: ink, style: stroke) // base
                 }
             case .mousepads:
                 ctx.stroke(Path(roundedRect: CGRect(x: ox + 8 * sx, y: oy + 12 * sy,
