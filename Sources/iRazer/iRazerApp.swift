@@ -15,7 +15,7 @@ struct iRazerApp: App {
         .windowResizability(.contentSize)
 
         // Always-available menu-bar item with quick controls.
-        MenuBarExtra("iRazer", systemImage: "bolt.horizontal.fill") {
+        MenuBarExtra("iRazer", systemImage: "bolt.fill") {
             MenuBarView(model: model)
         }
         .menuBarExtraStyle(.window)

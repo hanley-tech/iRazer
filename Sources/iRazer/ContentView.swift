@@ -60,7 +60,7 @@ struct ContentView: View {
     private var topBar: some View {
         HStack(spacing: 16) {
             HStack(spacing: 8) {
-                Image(systemName: "bolt.horizontal.fill").foregroundStyle(Theme.green)
+                Image(systemName: "bolt.fill").foregroundStyle(Theme.green)
                 Text("iRAZER").font(.system(size: 15, weight: .heavy)).tracking(2).foregroundStyle(Theme.text)
             }
             Spacer()
