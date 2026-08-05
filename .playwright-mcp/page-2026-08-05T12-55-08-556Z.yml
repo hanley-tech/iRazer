@@ -1,0 +1,105 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: IRAZER
+      - generic [ref=e7]:
+        - link "Features" [ref=e8] [cursor=pointer]:
+          - /url: "#features"
+        - link "Devices" [ref=e9] [cursor=pointer]:
+          - /url: "#devices"
+        - link "FAQ" [ref=e10] [cursor=pointer]:
+          - /url: "#faq"
+        - link "GitHub ★" [ref=e11] [cursor=pointer]:
+          - /url: https://github.com/hanley-tech/iRazer
+  - banner [ref=e12]:
+    - generic [ref=e15]:
+      - generic [ref=e16]: RAZER SYNAPSE ALTERNATIVE FOR MACOS
+      - heading "Control your Razer gear on your Mac." [level=1] [ref=e17]: Control your Razer gearon your Mac.
+      - paragraph [ref=e18]:
+        - text: iRazer is a free, open-source native macOS app to control Razer devices — RGB, EQ, volume, brightness & power —
+        - strong [ref=e19]: without Razer Synapse
+        - text: ". Apple Silicon & Intel. First device: the Razer Nommo V2."
+      - generic [ref=e20]:
+        - link "↓ Download for macOS" [ref=e21] [cursor=pointer]:
+          - /url: https://github.com/hanley-tech/iRazer/releases
+        - link "View source" [ref=e22] [cursor=pointer]:
+          - /url: https://github.com/hanley-tech/iRazer
+      - generic [ref=e23]: Free & MIT-licensed · no account · no daemon · lives in your menu bar
+      - img "iRazer app controlling a Razer Nommo V2 on macOS — device dashboard with lighting, EQ and power" [ref=e26]
+  - generic [ref=e28]:
+    - generic [ref=e29]: WHY IRAZER
+    - heading "Everything Synapse won't do on a Mac" [level=2] [ref=e30]
+    - paragraph [ref=e31]: Native, direct-to-hardware control over USB and Bluetooth. No proprietary software required.
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - heading "No Synapse needed" [level=3] [ref=e37]
+        - paragraph [ref=e38]: Talks to Razer hardware directly — no Razer account, no background service, no Windows.
+      - generic [ref=e39]:
+        - heading "Apple Silicon–first" [level=3] [ref=e44]
+        - paragraph [ref=e45]: A modern SwiftUI app built for M1/M2/M3/M4 (and Intel). Runs entirely in userspace.
+      - generic [ref=e46]:
+        - heading "RGB · EQ · Volume" [level=3] [ref=e50]
+        - paragraph [ref=e51]: Brightness, 10-band EQ & presets, master volume — with RGB effects on the way.
+      - generic [ref=e52]:
+        - heading "Menu-bar app" [level=3] [ref=e57]
+        - paragraph [ref=e58]: Lives in the menu bar with quick controls. Close the window; it stays resident.
+      - generic [ref=e59]:
+        - heading "Free & open source" [level=3] [ref=e64]
+        - paragraph [ref=e65]: MIT-licensed, no telemetry. Inspect it, build it, extend it, ship a device.
+      - generic [ref=e66]:
+        - heading "Full device dashboard" [level=3] [ref=e70]
+        - paragraph [ref=e71]: See all your Razer gear in one place — connected or not — like a real Synapse.
+  - generic [ref=e73]:
+    - generic [ref=e74]: SUPPORTED & PLANNED
+    - heading "One app for your whole setup" [level=2] [ref=e75]
+    - paragraph [ref=e76]: The Razer Nommo V2 is fully supported today. More devices are on the roadmap — contributions welcome.
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - text: Live
+        - generic [ref=e80]: Nommo V2
+      - generic [ref=e81]:
+        - text: Planned
+        - generic [ref=e83]: Leviathan V2
+      - generic [ref=e84]:
+        - text: Planned
+        - generic [ref=e86]: BlackWidow V4
+      - generic [ref=e87]:
+        - text: Planned
+        - generic [ref=e89]: DeathAdder V3
+      - generic [ref=e90]:
+        - text: Planned
+        - generic [ref=e92]: Kraken V3
+      - generic [ref=e93]:
+        - text: Planned
+        - generic [ref=e95]: Basilisk V3
+      - generic [ref=e96]:
+        - text: Planned
+        - generic [ref=e98]: Huntsman V3
+      - generic [ref=e99]:
+        - text: Planned
+        - generic [ref=e101]: + your device
+  - generic [ref=e103]:
+    - generic [ref=e104]: FAQ
+    - heading "Questions, answered" [level=2] [ref=e105]
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - heading "Is there a Razer Synapse for Mac?" [level=3] [ref=e108]
+        - paragraph [ref=e109]: No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative that controls Razer devices natively on macOS.
+      - generic [ref=e110]:
+        - heading "How do I control a Razer Nommo V2 on a Mac?" [level=3] [ref=e111]
+        - paragraph [ref=e112]: "Install iRazer, plug the Nommo V2 in over USB, and open the app: brightness, 10-band EQ, presets, master volume, and keep-awake work today; RGB over Bluetooth is in progress."
+      - generic [ref=e113]:
+        - heading "Is iRazer free?" [level=3] [ref=e114]
+        - paragraph [ref=e115]: Yes — MIT-licensed and open source, with no account, subscription, or telemetry.
+      - generic [ref=e116]:
+        - heading "Does it need Razer Synapse installed?" [level=3] [ref=e117]
+        - paragraph [ref=e118]: No. It talks to the hardware directly over USB HID and Bluetooth LE.
+      - generic [ref=e119]:
+        - heading "Which Macs are supported?" [level=3] [ref=e120]
+        - paragraph [ref=e121]: macOS 14+ on Apple Silicon (M1/M2/M3/M4) and Intel.
+      - generic [ref=e122]:
+        - heading "Is it safe / does it need admin rights?" [level=3] [ref=e123]
+        - paragraph [ref=e124]: It runs entirely in userspace — no kernel extension, no root. It only talks to Razer devices you plug in.
+    - link "Get iRazer on GitHub →" [ref=e126] [cursor=pointer]:
+      - /url: https://github.com/hanley-tech/iRazer
+  - contentinfo [ref=e127]: Open source (MIT) · Not affiliated with, authorized, or endorsed by Razer Inc. "Razer", "Synapse", and "Chroma" are trademarks of Razer Inc., used only to describe compatibility.
