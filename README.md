@@ -48,6 +48,7 @@ first fully-integrated device; the architecture is designed so more Razer device
 
 ## Features
 
+- ⭐ **Keep your speakers awake** — stop the Nommo V2 from dozing off / auto-powering-down (the reason this exists).
 - 🎛️ **Native macOS app** (SwiftUI) — menu-bar-friendly, no daemon, no login.
 - 🔌 **Direct device control** over USB HID and Bluetooth LE — no Synapse, no kext, no root.
 - 🍏 **Apple Silicon–first** (M1/M2/M3/M4), also runs on Intel Macs.
@@ -77,6 +78,20 @@ first fully-integrated device; the architecture is designed so more Razer device
 Legend: ✅ working · 🚧 in progress · ⚙️ workaround. See
 [`docs/DEVICES.md`](docs/DEVICES.md) for the details and
 [`docs/FINDINGS.md`](docs/FINDINGS.md) for the full protocol reverse-engineering log.
+
+### Razer Nommo V2 — what iRazer does today
+
+- ⭐ **Keep speakers awake** — stops the Nommo V2 from auto-sleeping and powering
+  off during quiet passages (the #1 reason this app exists). If your Nommo V2 keeps
+  turning off / going to standby, flip this on: it plays a brief inaudible pulse once
+  a minute so the speakers never idle out. The firmware's own standby timer is
+  read-only, so this is the reliable fix on macOS.
+- 💡 **Brightness** — LED brightness, including fully off.
+- 🎚️ **10-band equalizer** + presets (flat/game/etc.).
+- 🔊 **Master volume** (device DSP).
+- ℹ️ **Device info** — serial and firmware/hardware version.
+- 🌈 **RGB color & effects** — *in progress* (this lives on the Nommo V2's Bluetooth
+  channel; see [`docs/FINDINGS.md`](docs/FINDINGS.md)).
 
 **Want your device supported?** See [Adding a device](docs/ADDING_DEVICES.md) — the
 whole point of the project is to grow this table. Captures and PRs welcome.
@@ -176,6 +191,12 @@ covers audio/EQ/power, not just lighting.
 ### Is there a Razer Synapse for Mac?
 No — Razer does not make Synapse for macOS. iRazer is a free, open-source alternative
 that controls Razer devices natively on macOS (Apple Silicon and Intel).
+
+### Why does my Razer Nommo V2 keep turning off / going to sleep, and how do I stop it?
+The Nommo V2 powers down after a period of audio silence, and its standby timer can't
+be changed on the device (the firmware register is read-only). iRazer fixes this with a
+**Keep speakers awake** toggle that plays a brief inaudible pulse once a minute, so the
+speakers never idle out. This is the main reason iRazer was built.
 
 ### How do I control a Razer Nommo V2 on a Mac?
 Install iRazer (download the DMG or build from source), plug the Nommo V2 in over USB,

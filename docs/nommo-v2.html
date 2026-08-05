@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Razer Nommo V2 on Mac — keep-awake, EQ, volume &amp; RGB without Synapse | iRazer</title>
+<meta name="description" content="Control the Razer Nommo V2 on macOS without Synapse: stop it turning off/going to sleep (keep-awake), change EQ and volume, adjust brightness, and more. Free, open-source app for Apple Silicon &amp; Intel Macs.">
+<link rel="canonical" href="https://hanley-tech.github.io/iRazer/nommo-v2.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Razer Nommo V2 on Mac — fixes without Synapse (iRazer)">
+<meta property="og:description" content="Stop the Nommo V2 turning off, change EQ/volume, control lighting — natively on macOS, no Synapse. Free &amp; open source.">
+<meta property="og:url" content="https://hanley-tech.github.io/iRazer/nommo-v2.html">
+<meta property="og:image" content="https://hanley-tech.github.io/iRazer/assets/screenshot.png?v=4">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Why does my Razer Nommo V2 keep turning off or going to sleep on a Mac?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Nommo V2 auto-powers-down after a period of audio silence. Its standby timer is read-only on the device, so you can't extend it directly. iRazer's Keep Speakers Awake toggle plays a brief inaudible pulse once a minute so the speakers never idle out and turn off." } },
+    { "@type": "Question", "name": "How do I stop the Razer Nommo V2 from going into standby?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Install iRazer (free, open source), open it, and turn on Keep Speakers Awake in the Power section. It keeps the audio path active with an inaudible pulse so standby never triggers." } },
+    { "@type": "Question", "name": "How do I change the Razer Nommo V2 EQ on a Mac without Synapse?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Razer Synapse doesn't run on macOS. iRazer gives the Nommo V2 a 10-band equalizer with presets in its Sound tab, over USB — no Synapse needed." } },
+    { "@type": "Question", "name": "How do I control Razer Nommo V2 volume on a Mac?",
+      "acceptedAnswer": { "@type": "Answer", "text": "iRazer exposes the Nommo V2's DSP master volume in the Sound tab, in addition to normal macOS system volume." } },
+    { "@type": "Question", "name": "Can I change the Razer Nommo V2 RGB lighting on a Mac?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Brightness (including turning the lights off) works today in iRazer. Full RGB color and effects are in progress — that control lives on the Nommo V2's Bluetooth channel, which iRazer is still decoding." } },
+    { "@type": "Question", "name": "Does Razer Synapse work with the Nommo V2 on macOS?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Razer Synapse is Windows-only. iRazer is a free, open-source native macOS alternative for the Nommo V2." } }
+  ]
+}
+</script>
+
+<style>
+  :root{--green:#44D62C;--bg:#0a0a0b;--card:#151517;--border:#26262a;--t2:#a2a2a8;--t3:#6d6d74}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:#fff;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  a{color:var(--green)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  nav{border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;gap:8px;height:56px;font-weight:800;letter-spacing:2px}
+  nav svg{filter:drop-shadow(0 0 6px var(--green))}
+  nav a{color:#fff;text-decoration:none}
+  header{text-align:center;padding:48px 0 8px}
+  header img{filter:drop-shadow(0 0 16px rgba(68,214,44,.4))}
+  h1{font-size:clamp(26px,5vw,40px);font-weight:900;margin:14px 0 6px}
+  .lead{color:var(--t2);max-width:620px;margin:6px auto 0}
+  .btn{display:inline-block;background:var(--green);color:#000;font-weight:800;padding:12px 22px;border-radius:10px;text-decoration:none;margin:22px 6px 0}
+  .btn.ghost{background:transparent;color:#fff;border:1px solid var(--border)}
+  .hi{background:linear-gradient(180deg,rgba(68,214,44,.12),rgba(68,214,44,.04));border:1px solid rgba(68,214,44,.4);border-radius:14px;padding:22px;margin:40px 0}
+  .hi h2{font-size:20px;margin-bottom:8px}
+  .hi p{color:#dcdcdc}
+  h2{margin:36px 0 6px}
+  .qa{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:12px 0}
+  .qa h3{font-size:16px;margin-bottom:6px}
+  .qa p{color:var(--t2);font-size:14px}
+  table{width:100%;border-collapse:collapse;margin:12px 0}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);font-size:14px}
+  footer{border-top:1px solid var(--border);margin-top:44px;padding:30px 0;color:var(--t3);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="./"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" fill="#44D62C"/></svg></a><a href="./">iRAZER</a></div></nav>
+
+<header>
+  <div class="wrap">
+    <img src="assets/devices/nommo.svg?v=2" width="90" alt="Razer Nommo V2">
+    <h1>Razer Nommo V2 on macOS</h1>
+    <p class="lead">Control your Razer Nommo V2 on a Mac <strong>without Razer Synapse</strong> —
+      keep the speakers from turning off, change the EQ and volume, and adjust the lighting.
+      Free &amp; open source, for Apple Silicon and Intel.</p>
+    <a class="btn" href="https://github.com/hanley-tech/iRazer/releases">↓ Download iRazer</a>
+    <a class="btn ghost" href="https://github.com/hanley-tech/iRazer">View on GitHub</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hi">
+    <h2>⭐ Stop the Nommo V2 from turning off</h2>
+    <p>The most common Nommo V2 complaint: it drops into standby and powers off during
+    quiet moments, and there's no way to disable that on the device (the firmware's
+    standby timer is read-only). iRazer's <strong>Keep Speakers Awake</strong> toggle
+    keeps the audio path alive with a brief inaudible pulse once a minute, so the
+    speakers never idle out. This is the reason iRazer was built.</p>
+  </div>
+
+  <h2>What works today</h2>
+  <table>
+    <tr><th>Feature</th><th>Status</th></tr>
+    <tr><td>⭐ Keep speakers awake (anti-standby)</td><td>✅ Working</td></tr>
+    <tr><td>LED brightness (incl. off)</td><td>✅ Working</td></tr>
+    <tr><td>10-band EQ + presets</td><td>✅ Working</td></tr>
+    <tr><td>Master volume (DSP)</td><td>✅ Working</td></tr>
+    <tr><td>Device info (serial, firmware)</td><td>✅ Working</td></tr>
+    <tr><td>RGB color &amp; effects</td><td>🚧 In progress (Bluetooth)</td></tr>
+  </table>
+
+  <h2>Common Nommo V2 questions</h2>
+  <div class="qa"><h3>Why does my Razer Nommo V2 keep turning off / going to sleep?</h3><p>It auto-powers-down after audio silence, and the standby timer can't be changed on the device. Turn on <strong>Keep Speakers Awake</strong> in iRazer to stop it.</p></div>
+  <div class="qa"><h3>How do I change the Nommo V2 EQ on a Mac without Synapse?</h3><p>Synapse is Windows-only. iRazer gives the Nommo V2 a 10-band EQ with presets in the Sound tab, over USB.</p></div>
+  <div class="qa"><h3>How do I control Nommo V2 volume on a Mac?</h3><p>iRazer exposes the device's DSP master volume in the Sound tab, alongside macOS system volume.</p></div>
+  <div class="qa"><h3>Can I change the Nommo V2 RGB lighting on a Mac?</h3><p>Brightness (and turning the lights off) works today. Full RGB color/effects are in progress — that control is on the Nommo V2's Bluetooth channel, which iRazer is decoding.</p></div>
+  <div class="qa"><h3>Does Razer Synapse work with the Nommo V2 on macOS?</h3><p>No — Synapse is Windows-only. iRazer is the free, open-source native macOS alternative.</p></div>
+</div>
+
+<footer>
+  <a href="./">← iRazer home</a> · Open source (MIT) · Not affiliated with Razer Inc.
+  "Razer", "Synapse", and "Nommo" are trademarks of Razer Inc., used only to describe compatibility.
+</footer>
+</body>
+</html>

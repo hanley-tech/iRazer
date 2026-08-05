@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hanley-tech.github.io/iRazer/sitemap.xml
