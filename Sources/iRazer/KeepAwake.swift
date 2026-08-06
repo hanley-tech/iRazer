@@ -1,42 +1,84 @@
 import AVFoundation
+import AppKit
 
-/// Prevents the speakers' audio-idle standby (the firmware timer is read-only)
-/// by playing a brief, inaudible pulse on an interval — NOT a continuous tone.
-///
-/// The Nommo family powers off after minutes of true silence (the original
-/// Nommo Pro used 20 min; the V2 defaults to 15). A short sub-audible blip well
-/// inside that window keeps the audio path "active" without any constant output.
+/// How aggressively to keep the speakers awake.
+enum KeepAwakeMode: String, CaseIterable, Identifiable {
+    case off = "Off"
+    case smart = "Smart"
+    case always = "Always"
+    var id: String { rawValue }
+    var detail: String {
+        switch self {
+        case .off:    return "Speakers sleep normally."
+        case .smart:  return "Keep awake while you're using the Mac — but let the speakers sleep when the display or computer sleeps."
+        case .always: return "Never let the speakers sleep while the Mac is awake, even with the display off."
+        }
+    }
+}
+
+/// Prevents the Nommo V2's audio-idle standby with a brief inaudible pulse — but
+/// only when it should. In Smart mode it stops when the display/computer sleeps,
+/// so the speakers sleep with your Mac (and no power is wasted). Efficient:
+/// the timer is fully suspended when not running, and the audio engine is paused
+/// between pulses (~0.5 s of near-silent 80 Hz once a minute).
 final class KeepAwake {
-    /// How often to emit the keep-alive pulse. 60 s is comfortably inside the
-    /// multi-minute standby window with lots of margin.
-    var intervalSeconds: TimeInterval = 60
-    /// Pulse duration — long enough for the idle detector to register it.
+    private(set) var mode: KeepAwakeMode = .off
+    private let intervalSeconds: TimeInterval = 60
     private let pulseSeconds = 0.5
 
     private var timer: Timer?
+    private var displayAsleep = false
+    private var observersAdded = false
+
     private let engine = AVAudioEngine()
     private let player = AVAudioPlayerNode()
     private var buffer: AVAudioPCMBuffer?
     private var wired = false
 
-    var isRunning: Bool { timer != nil }
+    func setMode(_ m: KeepAwakeMode) {
+        mode = m
+        addObserversIfNeeded()
+        reevaluate()
+    }
 
-    func start() {
+    // MARK: - Sleep awareness
+
+    private func addObserversIfNeeded() {
+        guard !observersAdded else { return }
+        observersAdded = true
+        let nc = NSWorkspace.shared.notificationCenter
+        let sleep: (Notification) -> Void = { [weak self] _ in self?.displayAsleep = true;  self?.reevaluate() }
+        let wake:  (Notification) -> Void = { [weak self] _ in self?.displayAsleep = false; self?.reevaluate() }
+        nc.addObserver(forName: NSWorkspace.screensDidSleepNotification, object: nil, queue: .main, using: sleep)
+        nc.addObserver(forName: NSWorkspace.screensDidWakeNotification,  object: nil, queue: .main, using: wake)
+        nc.addObserver(forName: NSWorkspace.willSleepNotification,       object: nil, queue: .main, using: sleep)
+        nc.addObserver(forName: NSWorkspace.didWakeNotification,         object: nil, queue: .main, using: wake)
+    }
+
+    private var shouldRun: Bool {
+        switch mode {
+        case .off:    return false
+        case .always: return true
+        case .smart:  return !displayAsleep   // let speakers sleep with the Mac
+        }
+    }
+
+    private func reevaluate() { shouldRun ? startTimer() : stopTimer() }
+
+    // MARK: - Pulse engine
+
+    private func startTimer() {
         guard timer == nil else { return }
         wireIfNeeded()
-        pulse() // fire one immediately so standby resets right away
-        let t = Timer(timeInterval: intervalSeconds, repeats: true) { [weak self] _ in
-            self?.pulse()
-        }
+        pulse()
+        let t = Timer(timeInterval: intervalSeconds, repeats: true) { [weak self] _ in self?.pulse() }
         RunLoop.main.add(t, forMode: .common)
         timer = t
     }
 
-    func stop() {
-        timer?.invalidate()
-        timer = nil
-        player.stop()
-        engine.stop()
+    private func stopTimer() {
+        timer?.invalidate(); timer = nil
+        player.stop(); engine.stop()
     }
 
     private func wireIfNeeded() {
@@ -44,17 +86,13 @@ final class KeepAwake {
         let format = engine.outputNode.outputFormat(forBus: 0)
         engine.attach(player)
         engine.connect(player, to: engine.mainMixerNode, format: format)
-
-        // Pre-render one inaudible pulse: 80 Hz at ~-48 dBFS.
         let frames = AVAudioFrameCount(format.sampleRate * pulseSeconds)
         if let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frames) {
             buf.frameLength = frames
             let inc = 2.0 * Double.pi * 80.0 / format.sampleRate
             for ch in 0..<Int(format.channelCount) {
                 if let p = buf.floatChannelData?[ch] {
-                    for f in 0..<Int(frames) {
-                        p[f] = Float(sin(Double(f) * inc)) * 0.004
-                    }
+                    for f in 0..<Int(frames) { p[f] = Float(sin(Double(f) * inc)) * 0.004 }
                 }
             }
             buffer = buf
@@ -67,8 +105,7 @@ final class KeepAwake {
         do {
             if !engine.isRunning { try engine.start() }
             player.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
-                // Stop the engine between pulses so nothing runs in the gaps.
-                DispatchQueue.main.async { self?.engine.pause() }
+                DispatchQueue.main.async { self?.engine.pause() }  // idle between pulses
             }
             player.play()
         } catch {

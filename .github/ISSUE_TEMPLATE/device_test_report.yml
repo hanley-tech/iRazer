@@ -1,0 +1,45 @@
+name: "Device test report"
+description: "Report whether iRazer works with your Razer device on macOS"
+title: "[Test] <device name> (1532:XXXX)"
+labels: ["device-test"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for helping verify a device! See docs/TESTING.md for the quick steps."
+  - type: input
+    id: device
+    attributes:
+      label: Device + PID
+      placeholder: "Razer BlackWidow V4 Pro (1532:028D)"
+    validations: {required: true}
+  - type: dropdown
+    id: result
+    attributes:
+      label: Overall result
+      options:
+        - "Works — controls do what they should"
+        - "Partially works"
+        - "Detected but controls do nothing"
+        - "Not detected at all"
+    validations: {required: true}
+  - type: checkboxes
+    id: features
+    attributes:
+      label: What worked
+      options:
+        - {label: "Lighting / RGB"}
+        - {label: "Brightness"}
+        - {label: "Detected as plugged in"}
+        - {label: "Other (describe below)"}
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version + Mac model
+      placeholder: "macOS 15.1, MacBook Pro M3"
+    validations: {required: true}
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / nommoctl output
+      description: "Paste `nommoctl list` / `info` output and anything you noticed."
+      render: shell

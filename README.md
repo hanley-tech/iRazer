@@ -75,9 +75,16 @@ first fully-integrated device; the architecture is designed so more Razer device
 |---|---|:--:|:--:|:--:|:--:|:--:|
 | **Razer Nommo V2** | `1532:055C` | ✅ | ✅ | ✅ | 🚧 Bluetooth (in progress) | ⚙️ keep-awake |
 
-Legend: ✅ working · 🚧 in progress · ⚙️ workaround. See
-[`docs/DEVICES.md`](docs/DEVICES.md) for the details and
-[`docs/FINDINGS.md`](docs/FINDINGS.md) for the full protocol reverse-engineering log.
+Legend: ✅ working · 🚧 in progress · ⚙️ workaround.
+
+### Plus ~190 devices in experimental support
+
+iRazer also knows the protocol for **~190 more Razer devices** (keyboards, mice,
+headsets, laptops, mousepads…) from the Razer/OpenRazer database — listed in the app as
+**⚗️ experimental: untested on macOS**. Plug one in and iRazer detects it; try the
+controls and they may just work. **If you own any Razer gear, you can help verify it in
+5 minutes** — see [docs/TESTING.md](docs/TESTING.md). Full list + status:
+[docs/DEVICES.md](docs/DEVICES.md) · protocol log: [docs/FINDINGS.md](docs/FINDINGS.md).
 
 ### Razer Nommo V2 — what iRazer does today
 
@@ -206,6 +213,13 @@ macOS 14 or later, on both Apple Silicon (M1/M2/M3/M4) and Intel Macs.
 The Razer Nommo V2 is fully integrated (audio/EQ/volume/brightness). The app lists the
 broader Razer lineup and is built to add more devices — see [DEVICES.md](docs/DEVICES.md)
 and [ADDING_DEVICES.md](docs/ADDING_DEVICES.md).
+
+### What does "experimental" device support mean?
+iRazer knows the protocol for ~190 Razer devices from the Razer/OpenRazer database, but
+only the Nommo V2 is verified on macOS. The rest are marked **experimental**: plug one in
+and iRazer detects it and lets you try the controls, which may work fully, partially, or
+not yet. It's safe to try, and reporting what happens ([docs/TESTING.md](docs/TESTING.md))
+graduates the device to fully tested.
 
 ### Is it safe / does it need admin rights?
 It runs entirely in userspace — no kernel extension, no root. It only talks to Razer

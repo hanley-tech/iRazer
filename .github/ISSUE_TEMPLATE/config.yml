@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How to help test
+    url: https://github.com/hanley-tech/iRazer/blob/main/docs/TESTING.md
+    about: Quick guide to verifying an experimental device on macOS

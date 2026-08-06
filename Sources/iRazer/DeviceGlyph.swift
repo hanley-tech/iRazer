@@ -65,6 +65,26 @@ struct DeviceGlyph: View {
                 ctx.stroke(band, with: ink, style: stroke)
                 ctx.stroke(Path(roundedRect: CGRect(x: ox + 8 * sx, y: oy + 28 * sy, width: 10 * sx, height: 14 * sy), cornerRadius: 4 * sx), with: ink, style: stroke)
                 ctx.stroke(Path(roundedRect: CGRect(x: ox + 46 * sx, y: oy + 28 * sy, width: 10 * sx, height: 14 * sy), cornerRadius: 4 * sx), with: ink, style: stroke)
+            case .keypads:
+                ctx.stroke(Path(roundedRect: CGRect(x: ox + 16 * sx, y: oy + 10 * sy, width: 32 * sx, height: 28 * sy), cornerRadius: 4 * sx), with: ink, style: stroke)
+                for ry in [17.0, 24.0, 31.0] { for kx in [22.0, 30.0, 38.0] {
+                    ctx.stroke(line(kx, ry, kx + 2, ry), with: ink, style: stroke) } }
+            case .laptops:
+                ctx.stroke(Path(roundedRect: CGRect(x: ox + 12 * sx, y: oy + 8 * sy, width: 40 * sx, height: 26 * sy), cornerRadius: 3 * sx), with: ink, style: stroke)
+                ctx.stroke(line(6, 40, 58, 40), with: ink, style: stroke)
+                ctx.stroke(line(10, 34, 54, 34), with: ink, style: stroke)
+            case .ledstrips:
+                ctx.fill(Path(roundedRect: CGRect(x: ox + 6 * sx, y: oy + 30 * sy, width: 52 * sx, height: 4 * sy), cornerRadius: 2 * sx), with: underglow)
+                ctx.stroke(Path(roundedRect: CGRect(x: ox + 6 * sx, y: oy + 20 * sy, width: 52 * sx, height: 8 * sy), cornerRadius: 4 * sx), with: ink, style: stroke)
+                for dx in stride(from: 12.0, through: 52.0, by: 8.0) {
+                    ctx.fill(ellipse(dx, 24, 1.6, 1.6), with: ink) }
+            case .gpus:
+                ctx.stroke(Path(roundedRect: CGRect(x: ox + 6 * sx, y: oy + 14 * sy, width: 52 * sx, height: 20 * sy), cornerRadius: 3 * sx), with: ink, style: stroke)
+                ctx.stroke(ellipse(24, 24, 6, 6), with: ink, style: stroke)
+                ctx.stroke(ellipse(42, 24, 6, 6), with: ink, style: stroke)
+            case .accessories:
+                ctx.stroke(Path(roundedRect: CGRect(x: ox + 16 * sx, y: oy + 10 * sy, width: 32 * sx, height: 28 * sy), cornerRadius: 5 * sx), with: ink, style: stroke)
+                ctx.stroke(ellipse(32, 24, 5, 5), with: ink, style: stroke)
             }
         }
         .shadow(color: glow ? color.opacity(0.4) : .clear, radius: 8)

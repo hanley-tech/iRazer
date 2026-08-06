@@ -31,15 +31,30 @@ final class NommoViewModel: ObservableObject {
     private var pollTimer: Timer?
     private var started = false
 
+    /// PIDs of every Razer HID device currently plugged in (any model). Lets the
+    /// app honestly show "detected" for experimental devices we don't fully drive yet.
+    @Published var connectedPIDs: Set<Int> = []
+
     func start() {
         guard !started else { return }   // idempotent: safe to call from multiple scenes
         started = true
+        applyKeepAwakeOnLaunch()
         connect()
+        scanPresence()
         pollTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
             Task { @MainActor in
-                guard let self, !self.connected else { return }
-                self.connect()
+                guard let self else { return }
+                self.scanPresence()
+                if !self.connected { self.connect() }
             }
+        }
+    }
+
+    /// Enumerate all Razer HID devices and record which PIDs are present.
+    func scanPresence() {
+        queue.async {
+            let pids = Set(enumerateHIDDevices(vendorID: razerVID).map { $0.productID })
+            Task { @MainActor in self.connectedPIDs = pids }
         }
     }
 
@@ -151,10 +166,17 @@ final class NommoViewModel: ObservableObject {
 
     // MARK: - Keep awake (host-side: the firmware standby timer is read-only)
 
-    @Published var keepAwake = false {
-        didSet { keepAwake ? keepAwakePlayer.start() : keepAwakePlayer.stop() }
+    @Published var keepAwakeMode: KeepAwakeMode = KeepAwakeMode(rawValue:
+        UserDefaults.standard.string(forKey: "keepAwakeMode") ?? "") ?? .off {
+        didSet {
+            UserDefaults.standard.set(keepAwakeMode.rawValue, forKey: "keepAwakeMode")
+            keepAwakePlayer.setMode(keepAwakeMode)
+        }
     }
     private let keepAwakePlayer = KeepAwake()
+
+    /// Apply the persisted keep-awake mode on launch.
+    func applyKeepAwakeOnLaunch() { keepAwakePlayer.setMode(keepAwakeMode) }
 }
 
 extension Color {

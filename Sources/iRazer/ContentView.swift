@@ -30,6 +30,11 @@ struct ContentView: View {
     private func isConnected(_ d: RazerDeviceInfo) -> Bool {
         d.id == DeviceCatalog.nommoV2ID && model.connected
     }
+    /// Any Razer device (incl. experimental) physically plugged in right now.
+    private func isDetected(_ d: RazerDeviceInfo) -> Bool {
+        guard let pid = Int(d.pid.split(separator: ":").last ?? "", radix: 16) else { return false }
+        return model.connectedPIDs.contains(pid)
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -76,29 +81,33 @@ struct ContentView: View {
 
     private var deviceList: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                let connectedCount = DeviceCatalog.all.filter(isConnected).count
+            // Lazy so only visible rows of the ~190-device catalog are built.
+            LazyVStack(alignment: .leading, spacing: 14, pinnedViews: []) {
+                let detectedCount = model.connectedPIDs.count
                 HStack {
                     SectionLabel(text: "Devices")
                     Spacer()
-                    Text("\(connectedCount) connected")
+                    Text("\(detectedCount) detected · \(DeviceCatalog.all.count) known")
                         .font(.system(size: 10)).foregroundStyle(Theme.text3)
                 }
                 .padding(.horizontal, 14).padding(.top, 12)
 
                 ForEach(DeviceCategory.allCases) { cat in
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack(spacing: 6) {
-                            Image(systemName: cat.icon).font(.system(size: 9)).foregroundStyle(Theme.text3)
-                            Text(cat.rawValue.uppercased()).font(.system(size: 9, weight: .bold))
-                                .tracking(1.2).foregroundStyle(Theme.text3)
-                        }
-                        .padding(.horizontal, 14).padding(.top, 4)
-                        ForEach(DeviceCatalog.byCategory(cat)) { d in
-                            DeviceRow(device: d,
-                                      connected: isConnected(d),
-                                      selected: ui.selectedDevice == d.id) {
-                                ui.selectedDevice = d.id
+                    let items = DeviceCatalog.byCategory(cat)
+                    if !items.isEmpty {
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 6) {
+                                Image(systemName: cat.icon).font(.system(size: 9)).foregroundStyle(Theme.text3)
+                                Text("\(cat.rawValue.uppercased())  ·  \(items.count)").font(.system(size: 9, weight: .bold))
+                                    .tracking(1.2).foregroundStyle(Theme.text3)
+                            }
+                            .padding(.horizontal, 14).padding(.top, 4)
+                            ForEach(items) { d in
+                                DeviceRow(device: d,
+                                          detected: isDetected(d),
+                                          selected: ui.selectedDevice == d.id) {
+                                    ui.selectedDevice = d.id
+                                }
                             }
                         }
                     }
@@ -124,7 +133,7 @@ struct ContentView: View {
                     case .power: powerCards
                     }
                 } else {
-                    plannedPanel(d)
+                    devicePanel(d)
                 }
             }
             .padding(24)
@@ -140,8 +149,8 @@ struct ContentView: View {
                 .frame(width: 60, height: 60)
                 .overlay(
                     DeviceGlyph(category: d.category,
-                                color: isConnected(d) ? Theme.green : Theme.text2,
-                                glow: isConnected(d))
+                                color: isDetected(d) ? Theme.green : Theme.text2,
+                                glow: isDetected(d))
                         .frame(width: 42, height: 42)
                 )
                 .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Theme.border, lineWidth: 1))
@@ -160,11 +169,18 @@ struct ContentView: View {
         }
     }
 
+    private func badgeInfo(_ d: RazerDeviceInfo) -> (String, Color) {
+        if isConnected(d) { return ("CONNECTED", Theme.green) }
+        if d.support == .supported { return ("NOT CONNECTED", .orange) }
+        if d.support == .experimental {
+            return isDetected(d) ? ("DETECTED · EXPERIMENTAL", .yellow)
+                                 : ("EXPERIMENTAL · UNTESTED", Theme.text3)
+        }
+        return ("SUPPORT PLANNED", Theme.text3)
+    }
+
     private func statusBadge(_ d: RazerDeviceInfo) -> some View {
-        let (txt, col): (String, Color) =
-            isConnected(d) ? ("CONNECTED", Theme.green)
-            : d.support == .supported ? ("NOT CONNECTED", .orange)
-            : ("SUPPORT PLANNED", Theme.text3)
+        let (txt, col) = badgeInfo(d)
         return HStack(spacing: 5) {
             Circle().fill(col).frame(width: 7, height: 7)
             Text(txt).font(.system(size: 9, weight: .bold)).tracking(1).foregroundStyle(col)
@@ -190,24 +206,37 @@ struct ContentView: View {
         }
     }
 
-    private func plannedPanel(_ d: RazerDeviceInfo) -> some View {
+    @ViewBuilder private func devicePanel(_ d: RazerDeviceInfo) -> some View {
+        let experimental = d.support == .experimental
         Card {
             HStack(spacing: 8) {
-                Image(systemName: "hammer.fill").foregroundStyle(Theme.green)
-                Text("Support planned").font(.system(size: 14, weight: .bold)).foregroundStyle(Theme.text)
+                Image(systemName: experimental ? "testtube.2" : "hammer.fill").foregroundStyle(experimental ? .yellow : Theme.green)
+                Text(experimental ? "Experimental support" : "Support planned")
+                    .font(.system(size: 14, weight: .bold)).foregroundStyle(Theme.text)
             }
-            Text("iRazer doesn't control the \(d.name) yet. It's on the roadmap — the fastest way to add it is a USB/Bluetooth capture from someone who owns one.")
-                .font(.system(size: 12)).foregroundStyle(Theme.text2).fixedSize(horizontal: false, vertical: true)
-            SectionLabel(text: "Expected controls")
+            if experimental {
+                Text(isDetected(d)
+                     ? "Your \(d.name) is plugged in. iRazer knows this device's protocol, but it hasn't been tested on macOS yet — trying the controls could work, do nothing, or behave oddly. If you try it, please report what happens so we can mark it verified."
+                     : "iRazer knows the \(d.name)'s protocol from the Razer/OpenRazer database, but it's untested on macOS. Plug it in and help verify it.")
+                    .font(.system(size: 12)).foregroundStyle(Theme.text2).fixedSize(horizontal: false, vertical: true)
+            } else {
+                Text("iRazer doesn't control the \(d.name) yet. The fastest way to add it is a USB/Bluetooth capture from someone who owns one.")
+                    .font(.system(size: 12)).foregroundStyle(Theme.text2).fixedSize(horizontal: false, vertical: true)
+            }
+            SectionLabel(text: experimental ? "Expected controls (unverified)" : "Expected controls")
             FlowChips(items: d.capabilities)
             HStack(spacing: 10) {
-                Link(destination: URL(string: "https://github.com/")!) {
-                    Text("Contribute this device").font(.system(size: 12, weight: .semibold))
+                Link(destination: URL(string: experimental
+                        ? "https://github.com/hanley-tech/iRazer/issues/new?template=device_test_report.yml&title=\(d.pid)%20\(d.name)"
+                        : "https://github.com/hanley-tech/iRazer/blob/main/docs/ADDING_DEVICES.md")!) {
+                    Text(experimental ? "Report a test result" : "Help add this device")
+                        .font(.system(size: 12, weight: .semibold))
                         .foregroundStyle(.black).padding(.horizontal, 14).padding(.vertical, 8)
                         .background(Theme.green).clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
-                Text("See docs/ADDING_DEVICES.md").font(.system(size: 11)).foregroundStyle(Theme.text3)
+                Link("How to help test", destination: URL(string: "https://github.com/hanley-tech/iRazer/blob/main/docs/TESTING.md")!)
+                    .font(.system(size: 11)).foregroundStyle(Theme.text3)
             }
         }
     }
@@ -298,8 +327,16 @@ struct ContentView: View {
     private var powerCards: some View {
         Card {
             Row(label: "Keep speakers awake",
-                sub: "Plays a brief inaudible pulse each minute so the speakers never sleep.") {
-                Toggle("", isOn: $model.keepAwake).labelsHidden().toggleStyle(.switch)
+                sub: "Stop the Nommo V2 from auto-sleeping / powering off.") {
+                Picker("", selection: $model.keepAwakeMode) {
+                    ForEach(KeepAwakeMode.allCases) { Text($0.rawValue).tag($0) }
+                }
+                .labelsHidden().pickerStyle(.segmented).frame(width: 200)
+            }
+            HStack(spacing: 7) {
+                Image(systemName: "moon.zzz.fill").font(.system(size: 10)).foregroundStyle(Theme.green)
+                Text(model.keepAwakeMode.detail).font(.system(size: 11)).foregroundStyle(Theme.text3)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }.disabled(!model.connected)
     }
@@ -308,19 +345,21 @@ struct ContentView: View {
 /// A device row in the left list.
 struct DeviceRow: View {
     let device: RazerDeviceInfo
-    let connected: Bool
+    let detected: Bool
     let selected: Bool
     let action: () -> Void
+    private var dotColor: Color {
+        if detected { return device.support == .supported ? Theme.green : .yellow }
+        return device.support == .supported ? .orange : Theme.text3.opacity(0.5)
+    }
     var body: some View {
         Button(action: action) {
             HStack(spacing: 10) {
                 Rectangle().fill(selected ? Theme.green : .clear).frame(width: 3)
-                Circle()
-                    .fill(connected ? Theme.green : (device.support == .supported ? Color.orange : Theme.text3.opacity(0.5)))
-                    .frame(width: 7, height: 7)
+                Circle().fill(dotColor).frame(width: 7, height: 7)
                 Text(device.name)
                     .font(.system(size: 12, weight: selected ? .semibold : .regular))
-                    .foregroundStyle(device.support == .planned && !selected ? Theme.text3 : Theme.text)
+                    .foregroundStyle(detected || device.support == .supported || selected ? Theme.text : Theme.text2)
                     .lineLimit(1)
                 Spacer(minLength: 4)
             }

@@ -27,8 +27,12 @@ struct MenuBarView: View {
                     Text("Volume").font(.system(size: 11)).foregroundStyle(.secondary)
                     Slider(value: $model.volume, in: 0...100) { e in if !e { model.applyVolume() } }
                 }
-                Toggle("Keep speakers awake", isOn: $model.keepAwake)
-                    .font(.system(size: 12))
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Keep awake").font(.system(size: 11)).foregroundStyle(.secondary)
+                    Picker("", selection: $model.keepAwakeMode) {
+                        ForEach(KeepAwakeMode.allCases) { Text($0.rawValue).tag($0) }
+                    }.labelsHidden().pickerStyle(.segmented)
+                }
             }
 
             Divider()
