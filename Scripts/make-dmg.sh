@@ -23,6 +23,15 @@ hdiutil create -volname "iRazer" -srcfolder "$STAGE" -ov -format UDZO "$DMG" >/d
 rm -rf "$STAGE"
 echo "Built $DMG"
 
+# Notarize + staple if a signed build and a notarytool keychain profile are set:
+#   SIGN_ID="Developer ID Application: …" NOTARY_PROFILE=iRazer ./Scripts/make-dmg.sh
+if [ -n "${NOTARY_PROFILE:-}" ] && [ "${SIGN_ID:--}" != "-" ]; then
+  echo "Notarizing $DMG …"
+  xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
+  xcrun stapler staple "$DMG"
+  echo "Notarized + stapled $DMG"
+fi
+
 # ---------------------------------------------------------------------------
 # To sign + notarize (removes the Gatekeeper warning), with a paid Developer ID:
 #   codesign --deep --force --options runtime \

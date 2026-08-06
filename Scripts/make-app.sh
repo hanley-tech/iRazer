@@ -31,5 +31,12 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 </plist>
 PLIST
 
-codesign --force --sign - "$APP"
-echo "Built $APP"
+# Sign. Set SIGN_ID to a "Developer ID Application: …" identity to produce a
+# distributable (notarizable) build; defaults to ad-hoc so the repo stays generic.
+SIGN_ID="${SIGN_ID:--}"
+if [ "$SIGN_ID" = "-" ]; then
+  codesign --force --sign - "$APP"
+else
+  codesign --deep --force --options runtime --timestamp --sign "$SIGN_ID" "$APP"
+fi
+echo "Built $APP  (signed: $SIGN_ID)"
