@@ -23,6 +23,11 @@ enum KeepAwakeMode: String, CaseIterable, Identifiable {
 /// between pulses (~0.5 s of near-silent 80 Hz once a minute).
 final class KeepAwake {
     private(set) var mode: KeepAwakeMode = .off
+
+    /// Called on the main queue whenever the display/computer sleeps (`true`) or
+    /// wakes (`false`), regardless of mode — lets the app dim the LEDs to match.
+    var onDisplaySleepChange: ((Bool) -> Void)?
+
     private let intervalSeconds: TimeInterval = 60
     private let pulseSeconds = 0.5
 
@@ -47,12 +52,20 @@ final class KeepAwake {
         guard !observersAdded else { return }
         observersAdded = true
         let nc = NSWorkspace.shared.notificationCenter
-        let sleep: (Notification) -> Void = { [weak self] _ in self?.displayAsleep = true;  self?.reevaluate() }
-        let wake:  (Notification) -> Void = { [weak self] _ in self?.displayAsleep = false; self?.reevaluate() }
+        let sleep: (Notification) -> Void = { [weak self] _ in self?.setAsleep(true) }
+        let wake:  (Notification) -> Void = { [weak self] _ in self?.setAsleep(false) }
         nc.addObserver(forName: NSWorkspace.screensDidSleepNotification, object: nil, queue: .main, using: sleep)
         nc.addObserver(forName: NSWorkspace.screensDidWakeNotification,  object: nil, queue: .main, using: wake)
         nc.addObserver(forName: NSWorkspace.willSleepNotification,       object: nil, queue: .main, using: sleep)
         nc.addObserver(forName: NSWorkspace.didWakeNotification,         object: nil, queue: .main, using: wake)
+    }
+
+    /// Screens-sleep and system-sleep both fire on the way down; only act on a change.
+    private func setAsleep(_ asleep: Bool) {
+        guard displayAsleep != asleep else { return }
+        displayAsleep = asleep
+        reevaluate()
+        onDisplaySleepChange?(asleep)
     }
 
     private var shouldRun: Bool {

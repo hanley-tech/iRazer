@@ -76,7 +76,9 @@ final class NommoViewModel: ObservableObject {
                     self.connected = true
                     self.serial = state.serial
                     self.hardwareVersion = state.hardwareVersion
-                    self.brightness = Double(state.brightness) / 255 * 100
+                    // While dimmed for display sleep the device reads 0 — don't let
+                    // that clobber the slider we'll restore from on wake.
+                    if !self.dimmedForSleep { self.brightness = Double(state.brightness) / 255 * 100 }
                     if let vol { self.volume = vol }
                     self.eqPreset = Int(state.eqPreset)
                     self.eqGains = state.eqBands.map { Double(Int($0) - 0x0C) }
@@ -175,8 +177,35 @@ final class NommoViewModel: ObservableObject {
     }
     private let keepAwakePlayer = KeepAwake()
 
+    /// The Nommo's own standby timer only starts after the *last* audio anywhere on
+    /// the Mac, so the LEDs can stay lit long after the display goes dark. When this
+    /// is on we dim them to 0 the moment the display sleeps, and restore on wake.
+    @Published var dimOnDisplaySleep: Bool =
+        UserDefaults.standard.object(forKey: "dimOnDisplaySleep") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(dimOnDisplaySleep, forKey: "dimOnDisplaySleep") }
+    }
+    private var dimmedForSleep = false
+
     /// Apply the persisted keep-awake mode on launch.
-    func applyKeepAwakeOnLaunch() { keepAwakePlayer.setMode(keepAwakeMode) }
+    func applyKeepAwakeOnLaunch() {
+        keepAwakePlayer.onDisplaySleepChange = { [weak self] asleep in
+            Task { @MainActor in self?.displaySleepChanged(asleep) }
+        }
+        keepAwakePlayer.setMode(keepAwakeMode)
+    }
+
+    private func displaySleepChanged(_ asleep: Bool) {
+        // "Always" means never let the speakers rest, LEDs included.
+        guard dimOnDisplaySleep, keepAwakeMode != .always else { return }
+        if asleep {
+            guard !dimmedForSleep else { return }
+            dimmedForSleep = true
+            perform("Dim for display sleep") { try $0.setBrightness(0) }
+        } else if dimmedForSleep {
+            dimmedForSleep = false
+            applyBrightness()   // restore from the slider, in case it moved
+        }
+    }
 }
 
 extension Color {

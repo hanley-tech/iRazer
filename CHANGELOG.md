@@ -12,6 +12,11 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
   - 10-band EQ + presets, master volume, LED brightness — all confirmed on hardware.
   - **Keep-awake**: host-side inaudible pulse (1×/min) to defeat audio-idle standby,
     since the firmware standby timer is read-only.
+  - **Lights out with the display** (on by default, except in Keep-awake "Always"):
+    dims the LEDs to 0 as soon as the display or computer sleeps, and restores them
+    on wake. Without it the LEDs stay lit until the speakers' own standby timer
+    (default 15 min, reset by *any* audio on the Mac) expires — so a 10-minute
+    display sleep would leave them glowing at a dark desk.
 - SwiftUI app with **Control**, **Lab**, and **Console** tabs.
 - `RazerKit` core library (HID + BLE transport, Razer 90-byte packet, device API).
 - CLI tools: `nommoctl` (USB), `nommoble` (BLE), `nommofuzz` / `nommoblefuzz`

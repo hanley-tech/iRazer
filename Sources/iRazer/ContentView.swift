@@ -338,6 +338,11 @@ struct ContentView: View {
                 Text(model.keepAwakeMode.detail).font(.system(size: 11)).foregroundStyle(Theme.text3)
                     .fixedSize(horizontal: false, vertical: true)
             }
+            Row(label: "Lights out with the display",
+                sub: "Dim the LEDs the moment your display sleeps, instead of waiting out the speakers' own standby timer.") {
+                Toggle("", isOn: $model.dimOnDisplaySleep).labelsHidden().toggleStyle(.switch)
+            }
+            .disabled(model.keepAwakeMode == .always)
         }.disabled(!model.connected)
     }
 }
