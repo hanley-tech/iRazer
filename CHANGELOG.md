@@ -10,6 +10,9 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 - **Razer Nommo V2 (`1532:055C`)** support:
   - Device detection, serial, firmware/hardware version (USB HID).
   - 10-band EQ + presets, master volume, LED brightness — all confirmed on hardware.
+  - **Saved EQ presets + instant switching**: name your own presets, apply them from
+    the menu-bar item, or cycle with **⌥⌘E** / **⇧⌥⌘E** from any app (Carbon hot keys,
+    so no Accessibility prompt). A brief HUD shows the preset you switched to.
   - **Keep-awake**: host-side inaudible pulse (1×/min) to defeat audio-idle standby,
     since the firmware standby timer is read-only.
   - **Lights out with the display** (on by default, except in Keep-awake "Always"):

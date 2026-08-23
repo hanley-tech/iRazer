@@ -28,6 +28,32 @@ struct MenuBarView: View {
                     Slider(value: $model.volume, in: 0...100) { e in if !e { model.applyVolume() } }
                 }
                 VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Text("EQ preset").font(.system(size: 11)).foregroundStyle(.secondary)
+                        Spacer()
+                        Text("⌥⌘E").font(.system(size: 10).monospaced()).foregroundStyle(.tertiary)
+                    }
+                    ForEach(model.presets) { preset in
+                        let active = preset.matches(model.eqGains)
+                        Button { model.apply(preset) } label: {
+                            HStack(spacing: 8) {
+                                Image(systemName: preset.symbol)
+                                    .frame(width: 16)
+                                    .foregroundStyle(active ? Theme.green : .secondary)
+                                Text(preset.name).font(.system(size: 12, weight: active ? .semibold : .regular))
+                                Spacer()
+                                if active {
+                                    Image(systemName: "checkmark").font(.system(size: 10, weight: .bold))
+                                        .foregroundStyle(Theme.green)
+                                }
+                            }
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
                     Text("Keep awake").font(.system(size: 11)).foregroundStyle(.secondary)
                     Picker("", selection: $model.keepAwakeMode) {
                         ForEach(KeepAwakeMode.allCases) { Text($0.rawValue).tag($0) }

@@ -95,6 +95,9 @@ controls and they may just work. **If you own any Razer gear, you can help verif
   read-only, so this is the reliable fix on macOS.
 - 💡 **Brightness** — LED brightness, including fully off.
 - 🎚️ **10-band equalizer** + presets (flat/game/etc.).
+- ⚡ **Quick EQ switching without opening the app** — save your own named presets,
+  then pick one from the ⚡ menu-bar item or cycle them with **⌥⌘E** (⇧⌥⌘E goes
+  back), with a HUD showing what you landed on.
 - 🔊 **Master volume** (device DSP).
 - ℹ️ **Device info** — serial and firmware/hardware version.
 - 🌈 **RGB color & effects** — *in progress* (this lives on the Nommo V2's Bluetooth
@@ -129,7 +132,9 @@ open build/iRazer.app
 
 iRazer lives in the **menu bar**, not the Dock. Closing the window doesn't quit it —
 it stays resident and available from the ⚡ menu-bar item, which has quick
-brightness/volume/keep-awake controls and "Open iRazer…". Footprint is small (the
+brightness/volume/**EQ preset**/keep-awake controls and "Open iRazer…". The global
+shortcut **⌥⌘E** cycles EQ presets from anywhere (⇧⌥⌘E for the previous one) — no
+Accessibility permission needed, and it can be switched off in the EQ card. Footprint is small (the
 keep-awake audio engine only runs when enabled; otherwise it's just a light 3-second
 connection poll). Quit from the menu-bar item.
 

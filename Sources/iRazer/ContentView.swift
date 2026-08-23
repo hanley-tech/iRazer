@@ -295,6 +295,10 @@ struct ContentView: View {
             }.disabled(!model.connected)
 
             Card {
+                EQPresetBar(model: model)
+            }.disabled(!model.connected)
+
+            Card {
                 Row(label: "EQ preset") {
                     Picker("", selection: $model.eqPreset) {
                         Text("Default").tag(0); Text("Preset 1").tag(1)
