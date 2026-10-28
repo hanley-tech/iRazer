@@ -19,9 +19,11 @@ struct MenuBarView: View {
 
             if model.connected {
                 Divider()
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Brightness").font(.system(size: 11)).foregroundStyle(.secondary)
-                    Slider(value: $model.brightness, in: 0...100) { e in if !e { model.applyBrightness() } }
+                if model.supports("Brightness") {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Brightness").font(.system(size: 11)).foregroundStyle(.secondary)
+                        Slider(value: $model.brightness, in: 0...100) { e in if !e { model.applyBrightness() } }
+                    }
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Volume").font(.system(size: 11)).foregroundStyle(.secondary)

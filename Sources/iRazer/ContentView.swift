@@ -28,7 +28,10 @@ struct ContentView: View {
         DeviceCatalog.all.first { $0.id == ui.selectedDevice } ?? DeviceCatalog.all[0]
     }
     private func isConnected(_ d: RazerDeviceInfo) -> Bool {
-        d.id == DeviceCatalog.nommoV2ID && model.connected
+        guard model.connected, let pid = Int(d.pid.split(separator: ":").last ?? "", radix: 16) else {
+            return false
+        }
+        return model.connectedProductID == pid
     }
     /// Any Razer device (incl. experimental) physically plugged in right now.
     private func isDetected(_ d: RazerDeviceInfo) -> Bool {
@@ -58,6 +61,14 @@ struct ContentView: View {
         .background(Theme.bg)
         .tint(Theme.green)
         .preferredColorScheme(.dark)
+        .onChange(of: model.connectedProductID, initial: true) { _, productID in
+            guard let productID,
+                  let device = DeviceCatalog.all.first(where: {
+                      Int($0.pid.split(separator: ":").last ?? "", radix: 16) == productID
+                  }) else { return }
+            ui.selectedDevice = device.id
+            ui.section = availableSections(for: device).first ?? .sound
+        }
     }
 
     // MARK: Top brand bar
@@ -107,6 +118,7 @@ struct ContentView: View {
                                           detected: isDetected(d),
                                           selected: ui.selectedDevice == d.id) {
                                     ui.selectedDevice = d.id
+                                    ui.section = availableSections(for: d).first ?? .sound
                                 }
                             }
                         }
@@ -126,12 +138,15 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 18) {
                 deviceHeader(d)
                 if d.support == .supported {
-                    sectionPills
-                    switch ui.section {
-                    case .lighting: lightingCards
-                    case .sound: soundCards
-                    case .power: powerCards
+                    sectionPills(availableSections(for: d))
+                    Group {
+                        switch ui.section {
+                        case .lighting: lightingCards
+                        case .sound: soundCards
+                        case .power: powerCards
+                        }
                     }
+                    .disabled(!isConnected(d))
                 } else {
                     devicePanel(d)
                 }
@@ -187,9 +202,19 @@ struct ContentView: View {
         }
     }
 
-    private var sectionPills: some View {
+    private func availableSections(for device: RazerDeviceInfo) -> [ControlSection] {
+        var sections: [ControlSection] = []
+        if device.capabilities.contains("Brightness") { sections.append(.lighting) }
+        if device.capabilities.contains("Volume") || device.capabilities.contains("EQ") {
+            sections.append(.sound)
+        }
+        if device.capabilities.contains("Keep-awake") { sections.append(.power) }
+        return sections
+    }
+
+    private func sectionPills(_ sections: [ControlSection]) -> some View {
         HStack(spacing: 8) {
-            ForEach(ControlSection.allCases) { s in
+            ForEach(sections) { s in
                 Button { ui.section = s } label: {
                     HStack(spacing: 6) {
                         Image(systemName: s.icon).font(.system(size: 11))
@@ -342,11 +367,13 @@ struct ContentView: View {
                 Text(model.keepAwakeMode.detail).font(.system(size: 11)).foregroundStyle(Theme.text3)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            Row(label: "Lights out with the display",
-                sub: "Dim the LEDs the moment your display sleeps, instead of waiting out the speakers' own standby timer.") {
-                Toggle("", isOn: $model.dimOnDisplaySleep).labelsHidden().toggleStyle(.switch)
+            if model.supports("Brightness") {
+                Row(label: "Lights out with the display",
+                    sub: "Dim the LEDs the moment your display sleeps, instead of waiting out the speakers' own standby timer.") {
+                    Toggle("", isOn: $model.dimOnDisplaySleep).labelsHidden().toggleStyle(.switch)
+                }
+                .disabled(model.keepAwakeMode == .always)
             }
-            .disabled(model.keepAwakeMode == .always)
         }.disabled(!model.connected)
     }
 }

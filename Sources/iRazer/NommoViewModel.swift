@@ -5,6 +5,7 @@ import Carbon.HIToolbox
 @MainActor
 final class NommoViewModel: ObservableObject {
     @Published var connected = false
+    @Published var connectedProductID: Int?
     @Published var serial = ""
     @Published var hardwareVersion = ""
     @Published var statusMessage = "Searching for Razer Nommo V2…"
@@ -65,16 +66,27 @@ final class NommoViewModel: ObservableObject {
             guard let dev = NommoDevice.find() else {
                 Task { @MainActor in
                     self.connected = false
+                    self.connectedProductID = nil
                     self.statusMessage = "Razer Nommo V2 not found — check the USB cable."
                 }
                 return
             }
             do {
                 try dev.open()
-                let state = try dev.readState()
+                var state: NommoDevice.State
+                if dev.hid.productID == 0x055E {
+                    state = NommoDevice.State()
+                    state.serial = (try? dev.serial()) ?? ""
+                    state.hardwareVersion = (try? dev.hardwareVersion()) ?? ""
+                    state.eqPreset = (try? dev.eqPreset()) ?? 0
+                    state.eqBands = (try? dev.eqBands()) ?? state.eqBands
+                } else {
+                    state = try dev.readState()
+                }
                 let vol = (try? dev.masterVolume()).map(Double.init)
                 Task { @MainActor in
                     self.device = dev
+                    self.connectedProductID = dev.hid.productID
                     self.connected = true
                     self.serial = state.serial
                     self.hardwareVersion = state.hardwareVersion
@@ -91,6 +103,7 @@ final class NommoViewModel: ObservableObject {
             } catch {
                 Task { @MainActor in
                     self.connected = false
+                    self.connectedProductID = nil
                     self.statusMessage = "Found device but couldn't open it: \(error)"
                 }
             }
@@ -259,6 +272,14 @@ final class NommoViewModel: ObservableObject {
     }
     private let keepAwakePlayer = KeepAwake()
 
+    func supports(_ capability: String) -> Bool {
+        guard let connectedProductID,
+              let device = DeviceCatalog.all.first(where: {
+                  Int($0.pid.split(separator: ":").last ?? "", radix: 16) == connectedProductID
+              }) else { return false }
+        return device.capabilities.contains(capability)
+    }
+
     /// The Nommo's own standby timer only starts after the *last* audio anywhere on
     /// the Mac, so the LEDs can stay lit long after the display goes dark. When this
     /// is on we dim them to 0 the moment the display sleeps, and restore on wake.
@@ -277,6 +298,10 @@ final class NommoViewModel: ObservableObject {
     }
 
     private func displaySleepChanged(_ asleep: Bool) {
+        guard connected, supports("Brightness") else {
+            dimmedForSleep = false
+            return
+        }
         // "Always" means never let the speakers rest, LEDs included.
         guard dimOnDisplaySleep, keepAwakeMode != .always else { return }
         if asleep {
